@@ -1,0 +1,1169 @@
+{
+    "10761": {
+        "BBBLCLBB,BBBLCLBB": {
+            "score2": 1,
+            "score": 20000,
+            "num": 0
+        }
+    },
+    "Type": {
+        "Human": {
+            "score2": 18881,
+            "score": 1.059265928711403,
+            "num": 0
+        },
+        "Pig": {
+            "score2": 711,
+            "score": 28.129395218002813,
+            "num": 1
+        },
+        "Elephant": {
+            "score2": 256,
+            "score": 78.125,
+            "num": 2
+        },
+        "Robot": {
+            "score2": 72,
+            "score": 277.77777777777777,
+            "num": 3
+        },
+        "Skeleton": {
+            "score2": 57,
+            "score": 350.8771929824561,
+            "num": 4
+        },
+        "Visitor": {
+            "score2": 18,
+            "score": 1111.111111111111,
+            "num": 5
+        },
+        "Dissected": {
+            "score2": 5,
+            "score": 4000,
+            "num": 6
+        }
+    },
+    "Shoes_Color": {
+        "Black": {
+            "score2": 2992,
+            "score": 6.684491978609625,
+            "num": 0
+        },
+        "Gray": {
+            "score2": 2764,
+            "score": 7.235890014471781,
+            "num": 1
+        },
+        "White": {
+            "score2": 2198,
+            "score": 9.099181073703367,
+            "num": 2
+        },
+        "Yellow": {
+            "score2": 1004,
+            "score": 19.9203187250996,
+            "num": 3
+        },
+        "Purple": {
+            "score2": 893,
+            "score": 22.39641657334826,
+            "num": 4
+        },
+        "Magenta": {
+            "score2": 835,
+            "score": 23.95209580838323,
+            "num": 5
+        },
+        "Red": {
+            "score2": 833,
+            "score": 24.009603841536617,
+            "num": 6
+        },
+        "Green": {
+            "score2": 747,
+            "score": 26.77376171352075,
+            "num": 7
+        }
+    },
+    "Pants": {
+        "Athletic Shorts": {
+            "score2": 3379,
+            "score": 5.9189109203906485,
+            "num": 0
+        },
+        "Regular Pants": {
+            "score2": 3293,
+            "score": 6.0734892195566355,
+            "num": 1
+        },
+        "Cargo Pants": {
+            "score2": 2868,
+            "score": 6.97350069735007,
+            "num": 2
+        },
+        "Leggings": {
+            "score2": 2532,
+            "score": 7.8988941548183265,
+            "num": 3
+        },
+        "Short Leggings": {
+            "score2": 2418,
+            "score": 8.271298593879239,
+            "num": 4
+        },
+        "Skirt": {
+            "score2": 2384,
+            "score": 8.389261744966444,
+            "num": 5
+        },
+        "Ripped Jeans": {
+            "score2": 1948,
+            "score": 10.26694045174538,
+            "num": 6
+        },
+        "Trackpants": {
+            "score2": 677,
+            "score": 29.542097488921716,
+            "num": 7
+        },
+        "Suit Pants": {
+            "score2": 500,
+            "score": 40,
+            "num": 8
+        }
+    },
+    "Pants_Color": {
+        "Denim": {
+            "score2": 3783,
+            "score": 5.286809410520751,
+            "num": 0
+        },
+        "Dark Gray": {
+            "score2": 3704,
+            "score": 5.399568034557236,
+            "num": 1
+        },
+        "Camo": {
+            "score2": 3210,
+            "score": 6.230529595015576,
+            "num": 2
+        },
+        "Dark Red": {
+            "score2": 1307,
+            "score": 15.302218821729149,
+            "num": 3
+        },
+        "Blue Camo": {
+            "score2": 1005,
+            "score": 19.90049751243781,
+            "num": 4
+        },
+        "Black": {
+            "score2": 763,
+            "score": 26.21231979030144,
+            "num": 5
+        },
+        "Gray": {
+            "score2": 638,
+            "score": 31.347962382445143,
+            "num": 6
+        },
+        "White": {
+            "score2": 629,
+            "score": 31.79650238473768,
+            "num": 7
+        },
+        "Luxe": {
+            "score2": 585,
+            "score": 34.18803418803419,
+            "num": 8
+        },
+        "Posh": {
+            "score2": 428,
+            "score": 46.728971962616825,
+            "num": 9
+        },
+        "Leopard Print": {
+            "score2": 374,
+            "score": 53.475935828877,
+            "num": 10
+        },
+        "Purple": {
+            "score2": 218,
+            "score": 91.74311926605505,
+            "num": 11
+        },
+        "Red": {
+            "score2": 197,
+            "score": 101.52284263959392,
+            "num": 12
+        },
+        "Magenta": {
+            "score2": 188,
+            "score": 106.38297872340425,
+            "num": 13
+        },
+        "Green": {
+            "score2": 182,
+            "score": 109.89010989010988,
+            "num": 14
+        },
+        "Yellow": {
+            "score2": 171,
+            "score": 116.95906432748538,
+            "num": 15
+        },
+        "Green Plaid": {
+            "score2": 69,
+            "score": 289.8550724637681,
+            "num": 16
+        },
+        "Red Plaid": {
+            "score2": 69,
+            "score": 289.8550724637681,
+            "num": 17
+        },
+        "Argyle": {
+            "score2": 31,
+            "score": 645.1612903225806,
+            "num": 18
+        }
+    },
+    "Shirt_Color": {
+        "Black": {
+            "score2": 3116,
+            "score": 6.418485237483954,
+            "num": 0
+        },
+        "Gray": {
+            "score2": 2732,
+            "score": 7.320644216691069,
+            "num": 1
+        },
+        "White": {
+            "score2": 1970,
+            "score": 10.152284263959391,
+            "num": 2
+        },
+        "Yellow": {
+            "score2": 844,
+            "score": 23.696682464454977,
+            "num": 3
+        },
+        "Purple": {
+            "score2": 815,
+            "score": 24.539877300613497,
+            "num": 4
+        },
+        "Magenta": {
+            "score2": 813,
+            "score": 24.600246002460025,
+            "num": 5
+        },
+        "Red": {
+            "score2": 749,
+            "score": 26.7022696929239,
+            "num": 6
+        },
+        "Camo": {
+            "score2": 665,
+            "score": 30.075187969924812,
+            "num": 7
+        },
+        "Green": {
+            "score2": 634,
+            "score": 31.545741324921135,
+            "num": 8
+        },
+        "Green Plaid": {
+            "score2": 285,
+            "score": 70.17543859649122,
+            "num": 9
+        },
+        "Red Plaid": {
+            "score2": 240,
+            "score": 83.33333333333333,
+            "num": 10
+        },
+        "Blue Camo": {
+            "score2": 118,
+            "score": 169.49152542372883,
+            "num": 11
+        },
+        "Argyle": {
+            "score2": 111,
+            "score": 180.18018018018017,
+            "num": 12
+        },
+        "Luxe": {
+            "score2": 54,
+            "score": 370.3703703703703,
+            "num": 13
+        },
+        "Posh": {
+            "score2": 28,
+            "score": 714.2857142857143,
+            "num": 14
+        },
+        "Leopard Print": {
+            "score2": 21,
+            "score": 952.3809523809524,
+            "num": 15
+        }
+    },
+    "Hair_Style": {
+        "Buzzcut": {
+            "score2": 3277,
+            "score": 6.103143118706134,
+            "num": 0
+        },
+        "Simple": {
+            "score2": 2570,
+            "score": 7.782101167315175,
+            "num": 1
+        },
+        "Bald": {
+            "score2": 1752,
+            "score": 11.415525114155251,
+            "num": 2
+        },
+        "Fade": {
+            "score2": 1407,
+            "score": 14.214641080312722,
+            "num": 3
+        },
+        "Wild": {
+            "score2": 1400,
+            "score": 14.285714285714285,
+            "num": 4
+        },
+        "Spiky": {
+            "score2": 1345,
+            "score": 14.869888475836431,
+            "num": 5
+        },
+        "Ponytail": {
+            "score2": 789,
+            "score": 25.34854245880862,
+            "num": 6
+        },
+        "Straight": {
+            "score2": 774,
+            "score": 25.839793281653748,
+            "num": 7
+        },
+        "Long": {
+            "score2": 773,
+            "score": 25.8732212160414,
+            "num": 8
+        },
+        "Big Bangs": {
+            "score2": 760,
+            "score": 26.315789473684212,
+            "num": 9
+        },
+        "Pulled Back": {
+            "score2": 758,
+            "score": 26.38522427440633,
+            "num": 10
+        },
+        "Curly": {
+            "score2": 732,
+            "score": 27.3224043715847,
+            "num": 11
+        },
+        "Very Long": {
+            "score2": 731,
+            "score": 27.359781121751027,
+            "num": 12
+        },
+        "Messy": {
+            "score2": 664,
+            "score": 30.12048192771084,
+            "num": 13
+        },
+        "Mohawk": {
+            "score2": 643,
+            "score": 31.10419906687403,
+            "num": 14
+        },
+        "High Flat Top": {
+            "score2": 404,
+            "score": 49.504950495049506,
+            "num": 15
+        },
+        "Bob": {
+            "score2": 389,
+            "score": 51.41388174807199,
+            "num": 16
+        },
+        "One Side": {
+            "score2": 360,
+            "score": 55.55555555555556,
+            "num": 17
+        },
+        "Bun": {
+            "score2": 235,
+            "score": 85.1063829787234,
+            "num": 18
+        },
+        "Pigtails": {
+            "score2": 157,
+            "score": 127.38853503184714,
+            "num": 19
+        },
+        "Fiery Mohawk": {
+            "score2": 41,
+            "score": 487.80487804878044,
+            "num": 20
+        },
+        "Half-shaved": {
+            "score2": 39,
+            "score": 512.8205128205128,
+            "num": 21
+        }
+    },
+    "Glasses": {
+        "Elvis": {
+            "score2": 1374,
+            "score": 14.55604075691412,
+            "num": 0
+        },
+        "Frameless": {
+            "score2": 1339,
+            "score": 14.936519790888724,
+            "num": 1
+        },
+        "Round Glasses": {
+            "score2": 1299,
+            "score": 15.396458814472673,
+            "num": 2
+        },
+        "Sunglasses": {
+            "score2": 1083,
+            "score": 18.467220683287167,
+            "num": 3
+        },
+        "Aviators": {
+            "score2": 1057,
+            "score": 18.921475875118258,
+            "num": 4
+        },
+        "Nerdy": {
+            "score2": 966,
+            "score": 20.70393374741201,
+            "num": 5
+        },
+        "Specs": {
+            "score2": 592,
+            "score": 33.78378378378378,
+            "num": 6
+        },
+        "3D": {
+            "score2": 120,
+            "score": 166.66666666666666,
+            "num": 7
+        }
+    },
+    "Shoes": {
+        "Canvas": {
+            "score2": 3808,
+            "score": 5.2521008403361344,
+            "num": 0
+        },
+        "Slides": {
+            "score2": 1764,
+            "score": 11.337868480725623,
+            "num": 1
+        },
+        "Classic": {
+            "score2": 1736,
+            "score": 11.52073732718894,
+            "num": 2
+        },
+        "Skater": {
+            "score2": 1701,
+            "score": 11.757789535567314,
+            "num": 3
+        },
+        "Basketball": {
+            "score2": 1667,
+            "score": 11.99760047990402,
+            "num": 4
+        },
+        "Sneakers": {
+            "score2": 1649,
+            "score": 12.128562765312312,
+            "num": 5
+        },
+        "Workboots": {
+            "score2": 1590,
+            "score": 12.578616352201257,
+            "num": 6
+        },
+        "Urban Boots": {
+            "score2": 1106,
+            "score": 18.083182640144663,
+            "num": 7
+        },
+        "Sandals": {
+            "score2": 1066,
+            "score": 18.76172607879925,
+            "num": 8
+        },
+        "High Tops": {
+            "score2": 925,
+            "score": 21.62162162162162,
+            "num": 9
+        },
+        "Neon Sneakers": {
+            "score2": 799,
+            "score": 25.03128911138924,
+            "num": 10
+        },
+        "High Boots": {
+            "score2": 684,
+            "score": 29.239766081871345,
+            "num": 11
+        },
+        "Running": {
+            "score2": 639,
+            "score": 31.29890453834116,
+            "num": 12
+        },
+        "LL Baby Blue": {
+            "score2": 225,
+            "score": 88.88888888888889,
+            "num": 13
+        },
+        "LL High Tops": {
+            "score2": 170,
+            "score": 117.6470588235294,
+            "num": 14
+        },
+        "LL Orange": {
+            "score2": 133,
+            "score": 150.37593984962407,
+            "num": 15
+        },
+        "LL Tall": {
+            "score2": 113,
+            "score": 176.99115044247787,
+            "num": 16
+        },
+        "LL Retro": {
+            "score2": 78,
+            "score": 256.4102564102564,
+            "num": 17
+        },
+        "LL RGB": {
+            "score2": 52,
+            "score": 384.61538461538464,
+            "num": 18
+        },
+        "LL Moonboots": {
+            "score2": 44,
+            "score": 454.5454545454545,
+            "num": 19
+        },
+        "LL 86": {
+            "score2": 33,
+            "score": 606.0606060606061,
+            "num": 20
+        },
+        "LL Alien": {
+            "score2": 13,
+            "score": 1538.4615384615386,
+            "num": 21
+        },
+        "No Shoes": {
+            "score2": 5,
+            "score": 4000,
+            "num": 22
+        }
+    },
+    "Shirt": {
+        "Hoodie": {
+            "score2": 2107,
+            "score": 9.492168960607499,
+            "num": 0
+        },
+        "Skull Tee": {
+            "score2": 1972,
+            "score": 10.141987829614605,
+            "num": 1
+        },
+        "Invader Tee": {
+            "score2": 1792,
+            "score": 11.160714285714286,
+            "num": 2
+        },
+        "Suit": {
+            "score2": 1212,
+            "score": 16.5016501650165,
+            "num": 3
+        },
+        "Oversized Hoodie": {
+            "score2": 1123,
+            "score": 17.809439002671418,
+            "num": 4
+        },
+        "Tee": {
+            "score2": 1123,
+            "score": 17.809439002671418,
+            "num": 5
+        },
+        "Logo Tee": {
+            "score2": 996,
+            "score": 20.080321285140563,
+            "num": 6
+        },
+        "Windbreaker": {
+            "score2": 891,
+            "score": 22.44668911335578,
+            "num": 7
+        },
+        "Heart Hoodie": {
+            "score2": 886,
+            "score": 22.573363431151243,
+            "num": 8
+        },
+        "Long-sleeved": {
+            "score2": 840,
+            "score": 23.809523809523807,
+            "num": 9
+        },
+        "Ghost Tee": {
+            "score2": 833,
+            "score": 24.009603841536617,
+            "num": 10
+        },
+        "Diagonal Tee": {
+            "score2": 753,
+            "score": 26.560424966799467,
+            "num": 11
+        },
+        "Tube Top": {
+            "score2": 572,
+            "score": 34.96503496503497,
+            "num": 12
+        },
+        "Classic Jersey": {
+            "score2": 536,
+            "score": 37.3134328358209,
+            "num": 13
+        },
+        "Suit Jacket": {
+            "score2": 493,
+            "score": 40.56795131845842,
+            "num": 14
+        },
+        "Meepet Tee": {
+            "score2": 488,
+            "score": 40.983606557377044,
+            "num": 15
+        },
+        "Halter Top": {
+            "score2": 467,
+            "score": 42.82655246252677,
+            "num": 16
+        },
+        "Basketball Jersey": {
+            "score2": 433,
+            "score": 46.18937644341801,
+            "num": 17
+        },
+        "Hoodie Up": {
+            "score2": 412,
+            "score": 48.543689320388346,
+            "num": 18
+        },
+        "Bare Chest": {
+            "score2": 403,
+            "score": 49.62779156327543,
+            "num": 19
+        },
+        "Jersey": {
+            "score2": 400,
+            "score": 50,
+            "num": 20
+        },
+        "Snoutz Tee": {
+            "score2": 269,
+            "score": 74.34944237918215,
+            "num": 21
+        },
+        "Lines": {
+            "score2": 232,
+            "score": 86.20689655172414,
+            "num": 22
+        },
+        "Tie-dyed Tee": {
+            "score2": 121,
+            "score": 165.28925619834712,
+            "num": 23
+        },
+        "Snoutz Skull Tee": {
+            "score2": 103,
+            "score": 194.17475728155338,
+            "num": 24
+        },
+        "Stylized Hoodie": {
+            "score2": 101,
+            "score": 198.01980198019803,
+            "num": 25
+        },
+        "CGA Shirt": {
+            "score2": 101,
+            "score": 198.01980198019803,
+            "num": 26
+        },
+        "Hawaiian": {
+            "score2": 91,
+            "score": 219.78021978021977,
+            "num": 27
+        },
+        "Heart Tee": {
+            "score2": 77,
+            "score": 259.7402597402597,
+            "num": 28
+        },
+        "Snoutz Jersey": {
+            "score2": 64,
+            "score": 312.5,
+            "num": 29
+        },
+        "Snoutz Hoodie": {
+            "score2": 39,
+            "score": 512.8205128205128,
+            "num": 30
+        },
+        "Flamingo Tee": {
+            "score2": 37,
+            "score": 540.5405405405405,
+            "num": 31
+        },
+        "Punk Tee": {
+            "score2": 26,
+            "score": 769.2307692307693,
+            "num": 32
+        },
+        "Glyph Shirt": {
+            "score2": 6,
+            "score": 3333.3333333333335,
+            "num": 33
+        }
+    },
+    "Hair_Color": {
+        "Dark": {
+            "score2": 11709,
+            "score": 1.7080877957126996,
+            "num": 0
+        },
+        "Brown": {
+            "score2": 1795,
+            "score": 11.142061281337048,
+            "num": 1
+        },
+        "Blond": {
+            "score2": 1116,
+            "score": 17.921146953405017,
+            "num": 2
+        },
+        "Bleached": {
+            "score2": 890,
+            "score": 22.471910112359552,
+            "num": 3
+        },
+        "Dyed Red": {
+            "score2": 740,
+            "score": 27.027027027027028,
+            "num": 4
+        },
+        "Blonde": {
+            "score2": 612,
+            "score": 32.67973856209151,
+            "num": 5
+        },
+        "Light Blue": {
+            "score2": 353,
+            "score": 56.657223796033996,
+            "num": 6
+        },
+        "Auburn": {
+            "score2": 322,
+            "score": 62.11180124223603,
+            "num": 7
+        },
+        "Silver": {
+            "score2": 290,
+            "score": 68.9655172413793,
+            "num": 8
+        },
+        "Purple Dye": {
+            "score2": 210,
+            "score": 95.23809523809523,
+            "num": 9
+        },
+        "Rainbow": {
+            "score2": 99,
+            "score": 202.020202020202,
+            "num": 10
+        },
+        "Blue": {
+            "score2": 71,
+            "score": 281.6901408450704,
+            "num": 11
+        }
+    },
+    "Overshirt": {
+        "Collar Shirt": {
+            "score2": 1337,
+            "score": 14.958863126402392,
+            "num": 0
+        },
+        "Trenchcoat": {
+            "score2": 593,
+            "score": 33.72681281618887,
+            "num": 1
+        },
+        "Athletic Jacket": {
+            "score2": 503,
+            "score": 39.761431411530815,
+            "num": 2
+        },
+        "Leather Jacket": {
+            "score2": 461,
+            "score": 43.38394793926247,
+            "num": 3
+        },
+        "Jean Jacket": {
+            "score2": 316,
+            "score": 63.291139240506325,
+            "num": 4
+        }
+    },
+    "Overshirt_Color": {
+        "Gray": {
+            "score2": 239,
+            "score": 83.68200836820083,
+            "num": 0
+        },
+        "Black": {
+            "score2": 227,
+            "score": 88.10572687224669,
+            "num": 1
+        },
+        "Yellow": {
+            "score2": 194,
+            "score": 103.09278350515464,
+            "num": 2
+        },
+        "Magenta": {
+            "score2": 188,
+            "score": 106.38297872340425,
+            "num": 3
+        },
+        "Purple": {
+            "score2": 187,
+            "score": 106.951871657754,
+            "num": 4
+        },
+        "White": {
+            "score2": 180,
+            "score": 111.11111111111111,
+            "num": 5
+        },
+        "Red": {
+            "score2": 165,
+            "score": 121.2121212121212,
+            "num": 6
+        },
+        "Camo": {
+            "score2": 127,
+            "score": 157.48031496062993,
+            "num": 7
+        },
+        "Green": {
+            "score2": 118,
+            "score": 169.49152542372883,
+            "num": 8
+        },
+        "Red Plaid": {
+            "score2": 66,
+            "score": 303.03030303030306,
+            "num": 9
+        },
+        "Green Plaid": {
+            "score2": 61,
+            "score": 327.86885245901635,
+            "num": 10
+        },
+        "Blue Camo": {
+            "score2": 31,
+            "score": 645.1612903225806,
+            "num": 11
+        },
+        "Luxe": {
+            "score2": 25,
+            "score": 800,
+            "num": 12
+        },
+        "Argyle": {
+            "score2": 20,
+            "score": 1000,
+            "num": 13
+        },
+        "Posh": {
+            "score2": 12,
+            "score": 1666.6666666666667,
+            "num": 14
+        }
+    },
+    "Necklace": {
+        "Gold Chain": {
+            "score2": 2161,
+            "score": 9.254974548819991,
+            "num": 0
+        },
+        "Gold Necklace": {
+            "score2": 1577,
+            "score": 12.682308180088775,
+            "num": 1
+        }
+    },
+    "Earring": {
+        "Gold Earring": {
+            "score2": 859,
+            "score": 23.28288707799767,
+            "num": 0
+        },
+        "Gold Earrings": {
+            "score2": 782,
+            "score": 25.57544757033248,
+            "num": 1
+        },
+        "Gold Hoops": {
+            "score2": 401,
+            "score": 49.87531172069826,
+            "num": 2
+        }
+    },
+    "Beard": {
+        "Stubble": {
+            "score2": 1585,
+            "score": 12.618296529968454,
+            "num": 0
+        },
+        "Full": {
+            "score2": 1449,
+            "score": 13.802622498274673,
+            "num": 1
+        },
+        "Mustache": {
+            "score2": 628,
+            "score": 31.847133757961785,
+            "num": 2
+        },
+        "Big": {
+            "score2": 369,
+            "score": 54.200542005420054,
+            "num": 3
+        },
+        "Muttonchops": {
+            "score2": 156,
+            "score": 128.2051282051282,
+            "num": 4
+        },
+        "Biker Mustache": {
+            "score2": 129,
+            "score": 155.03875968992247,
+            "num": 5
+        },
+        "Medical Mask": {
+            "score2": 113,
+            "score": 176.99115044247787,
+            "num": 6
+        }
+    },
+    "Beard_Color": {
+        "Dark": {
+            "score2": 3341,
+            "score": 5.986231667165519,
+            "num": 0
+        },
+        "Brown": {
+            "score2": 453,
+            "score": 44.150110375275936,
+            "num": 1
+        },
+        "Blond": {
+            "score2": 450,
+            "score": 44.44444444444444,
+            "num": 2
+        },
+        "Silver": {
+            "score2": 72,
+            "score": 277.77777777777777,
+            "num": 3
+        }
+    },
+    "Glasses_Color": {
+        "Charcoal": {
+            "score2": 1232,
+            "score": 16.233766233766232,
+            "num": 0
+        },
+        "White": {
+            "score2": 1220,
+            "score": 16.39344262295082,
+            "num": 1
+        },
+        "Dark Red": {
+            "score2": 405,
+            "score": 49.382716049382715,
+            "num": 2
+        }
+    },
+    "Hat": {
+        "Headphones": {
+            "score2": 1285,
+            "score": 15.56420233463035,
+            "num": 0
+        },
+        "Cap": {
+            "score2": 1002,
+            "score": 19.960079840319363,
+            "num": 1
+        },
+        "Wool Hat": {
+            "score2": 670,
+            "score": 29.850746268656714,
+            "num": 2
+        },
+        "Backwards Cap": {
+            "score2": 664,
+            "score": 30.12048192771084,
+            "num": 3
+        },
+        "Trucker Cap": {
+            "score2": 328,
+            "score": 60.975609756097555,
+            "num": 4
+        },
+        "Bandana": {
+            "score2": 166,
+            "score": 120.48192771084337,
+            "num": 5
+        },
+        "Brimmed": {
+            "score2": 135,
+            "score": 148.14814814814815,
+            "num": 6
+        },
+        "Snoutz Cap": {
+            "score2": 79,
+            "score": 253.1645569620253,
+            "num": 7
+        }
+    },
+    "Hat_Color": {
+        "Black": {
+            "score2": 920,
+            "score": 21.73913043478261,
+            "num": 0
+        },
+        "Gray": {
+            "score2": 863,
+            "score": 23.174971031286212,
+            "num": 1
+        },
+        "White": {
+            "score2": 745,
+            "score": 26.845637583892618,
+            "num": 2
+        },
+        "Yellow": {
+            "score2": 298,
+            "score": 67.11409395973155,
+            "num": 3
+        },
+        "Purple": {
+            "score2": 275,
+            "score": 72.72727272727273,
+            "num": 4
+        },
+        "Magenta": {
+            "score2": 253,
+            "score": 79.05138339920948,
+            "num": 5
+        },
+        "Red": {
+            "score2": 236,
+            "score": 84.74576271186442,
+            "num": 6
+        },
+        "Camo": {
+            "score2": 229,
+            "score": 87.33624454148472,
+            "num": 7
+        },
+        "Green": {
+            "score2": 209,
+            "score": 95.69377990430623,
+            "num": 8
+        }
+    },
+    "Jersey_Number": {
+        "0": {
+            "score2": 140,
+            "score": 142.85714285714286,
+            "num": 6
+        },
+        "1": {
+            "score2": 129,
+            "score": 155.03875968992247,
+            "num": 9
+        },
+        "2": {
+            "score2": 133,
+            "score": 150.37593984962407,
+            "num": 7
+        },
+        "3": {
+            "score2": 168,
+            "score": 119.04761904761905,
+            "num": 0
+        },
+        "4": {
+            "score2": 146,
+            "score": 136.986301369863,
+            "num": 3
+        },
+        "5": {
+            "score2": 145,
+            "score": 137.9310344827586,
+            "num": 4
+        },
+        "6": {
+            "score2": 142,
+            "score": 140.8450704225352,
+            "num": 5
+        },
+        "7": {
+            "score2": 133,
+            "score": 150.37593984962407,
+            "num": 8
+        },
+        "8": {
+            "score2": 148,
+            "score": 135.13513513513513,
+            "num": 2
+        },
+        "9": {
+            "score2": 149,
+            "score": 134.2281879194631,
+            "num": 1
+        }
+    }
+}

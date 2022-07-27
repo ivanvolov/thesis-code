@@ -1,0 +1,226 @@
+names,category,value,score
+trait_10761_0,10761,"BBBLCLBB,BBBLCLBB",1
+trait_Type_0,Type,Human,18881
+trait_Type_1,Type,Pig,711
+trait_Type_2,Type,Elephant,256
+trait_Type_3,Type,Robot,72
+trait_Type_4,Type,Skeleton,57
+trait_Type_5,Type,Visitor,18
+trait_Type_6,Type,Dissected,5
+trait_Shoes_Color_0,Shoes_Color,Black,2992
+trait_Shoes_Color_1,Shoes_Color,Gray,2764
+trait_Shoes_Color_2,Shoes_Color,White,2198
+trait_Shoes_Color_3,Shoes_Color,Yellow,1004
+trait_Shoes_Color_4,Shoes_Color,Purple,893
+trait_Shoes_Color_5,Shoes_Color,Magenta,835
+trait_Shoes_Color_6,Shoes_Color,Red,833
+trait_Shoes_Color_7,Shoes_Color,Green,747
+trait_Pants_0,Pants,Athletic Shorts,3379
+trait_Pants_1,Pants,Regular Pants,3293
+trait_Pants_2,Pants,Cargo Pants,2868
+trait_Pants_3,Pants,Leggings,2532
+trait_Pants_4,Pants,Short Leggings,2418
+trait_Pants_5,Pants,Skirt,2384
+trait_Pants_6,Pants,Ripped Jeans,1948
+trait_Pants_7,Pants,Trackpants,677
+trait_Pants_8,Pants,Suit Pants,500
+trait_Pants_Color_0,Pants_Color,Denim,3783
+trait_Pants_Color_1,Pants_Color,Dark Gray,3704
+trait_Pants_Color_2,Pants_Color,Camo,3210
+trait_Pants_Color_3,Pants_Color,Dark Red,1307
+trait_Pants_Color_4,Pants_Color,Blue Camo,1005
+trait_Pants_Color_5,Pants_Color,Black,763
+trait_Pants_Color_6,Pants_Color,Gray,638
+trait_Pants_Color_7,Pants_Color,White,629
+trait_Pants_Color_8,Pants_Color,Luxe,585
+trait_Pants_Color_9,Pants_Color,Posh,428
+trait_Pants_Color_10,Pants_Color,Leopard Print,374
+trait_Pants_Color_11,Pants_Color,Purple,218
+trait_Pants_Color_12,Pants_Color,Red,197
+trait_Pants_Color_13,Pants_Color,Magenta,188
+trait_Pants_Color_14,Pants_Color,Green,182
+trait_Pants_Color_15,Pants_Color,Yellow,171
+trait_Pants_Color_16,Pants_Color,Green Plaid,69
+trait_Pants_Color_17,Pants_Color,Red Plaid,69
+trait_Pants_Color_18,Pants_Color,Argyle,31
+trait_Shirt_Color_0,Shirt_Color,Black,3116
+trait_Shirt_Color_1,Shirt_Color,Gray,2732
+trait_Shirt_Color_2,Shirt_Color,White,1970
+trait_Shirt_Color_3,Shirt_Color,Yellow,844
+trait_Shirt_Color_4,Shirt_Color,Purple,815
+trait_Shirt_Color_5,Shirt_Color,Magenta,813
+trait_Shirt_Color_6,Shirt_Color,Red,749
+trait_Shirt_Color_7,Shirt_Color,Camo,665
+trait_Shirt_Color_8,Shirt_Color,Green,634
+trait_Shirt_Color_9,Shirt_Color,Green Plaid,285
+trait_Shirt_Color_10,Shirt_Color,Red Plaid,240
+trait_Shirt_Color_11,Shirt_Color,Blue Camo,118
+trait_Shirt_Color_12,Shirt_Color,Argyle,111
+trait_Shirt_Color_13,Shirt_Color,Luxe,54
+trait_Shirt_Color_14,Shirt_Color,Posh,28
+trait_Shirt_Color_15,Shirt_Color,Leopard Print,21
+trait_Hair_Style_0,Hair_Style,Buzzcut,3277
+trait_Hair_Style_1,Hair_Style,Simple,2570
+trait_Hair_Style_2,Hair_Style,Bald,1752
+trait_Hair_Style_3,Hair_Style,Fade,1407
+trait_Hair_Style_4,Hair_Style,Wild,1400
+trait_Hair_Style_5,Hair_Style,Spiky,1345
+trait_Hair_Style_6,Hair_Style,Ponytail,789
+trait_Hair_Style_7,Hair_Style,Straight,774
+trait_Hair_Style_8,Hair_Style,Long,773
+trait_Hair_Style_9,Hair_Style,Big Bangs,760
+trait_Hair_Style_10,Hair_Style,Pulled Back,758
+trait_Hair_Style_11,Hair_Style,Curly,732
+trait_Hair_Style_12,Hair_Style,Very Long,731
+trait_Hair_Style_13,Hair_Style,Messy,664
+trait_Hair_Style_14,Hair_Style,Mohawk,643
+trait_Hair_Style_15,Hair_Style,High Flat Top,404
+trait_Hair_Style_16,Hair_Style,Bob,389
+trait_Hair_Style_17,Hair_Style,One Side,360
+trait_Hair_Style_18,Hair_Style,Bun,235
+trait_Hair_Style_19,Hair_Style,Pigtails,157
+trait_Hair_Style_20,Hair_Style,Fiery Mohawk,41
+trait_Hair_Style_21,Hair_Style,Half-shaved,39
+trait_Glasses_0,Glasses,Elvis,1374
+trait_Glasses_1,Glasses,Frameless,1339
+trait_Glasses_2,Glasses,Round Glasses,1299
+trait_Glasses_3,Glasses,Sunglasses,1083
+trait_Glasses_4,Glasses,Aviators,1057
+trait_Glasses_5,Glasses,Nerdy,966
+trait_Glasses_6,Glasses,Specs,592
+trait_Glasses_7,Glasses,3D,120
+trait_Shoes_0,Shoes,Canvas,3808
+trait_Shoes_1,Shoes,Slides,1764
+trait_Shoes_2,Shoes,Classic,1736
+trait_Shoes_3,Shoes,Skater,1701
+trait_Shoes_4,Shoes,Basketball,1667
+trait_Shoes_5,Shoes,Sneakers,1649
+trait_Shoes_6,Shoes,Workboots,1590
+trait_Shoes_7,Shoes,Urban Boots,1106
+trait_Shoes_8,Shoes,Sandals,1066
+trait_Shoes_9,Shoes,High Tops,925
+trait_Shoes_10,Shoes,Neon Sneakers,799
+trait_Shoes_11,Shoes,High Boots,684
+trait_Shoes_12,Shoes,Running,639
+trait_Shoes_13,Shoes,LL Baby Blue,225
+trait_Shoes_14,Shoes,LL High Tops,170
+trait_Shoes_15,Shoes,LL Orange,133
+trait_Shoes_16,Shoes,LL Tall,113
+trait_Shoes_17,Shoes,LL Retro,78
+trait_Shoes_18,Shoes,LL RGB,52
+trait_Shoes_19,Shoes,LL Moonboots,44
+trait_Shoes_20,Shoes,LL 86,33
+trait_Shoes_21,Shoes,LL Alien,13
+trait_Shoes_22,Shoes,No Shoes,5
+trait_Shirt_0,Shirt,Hoodie,2107
+trait_Shirt_1,Shirt,Skull Tee,1972
+trait_Shirt_2,Shirt,Invader Tee,1792
+trait_Shirt_3,Shirt,Suit,1212
+trait_Shirt_4,Shirt,Oversized Hoodie,1123
+trait_Shirt_5,Shirt,Tee,1123
+trait_Shirt_6,Shirt,Logo Tee,996
+trait_Shirt_7,Shirt,Windbreaker,891
+trait_Shirt_8,Shirt,Heart Hoodie,886
+trait_Shirt_9,Shirt,Long-sleeved,840
+trait_Shirt_10,Shirt,Ghost Tee,833
+trait_Shirt_11,Shirt,Diagonal Tee,753
+trait_Shirt_12,Shirt,Tube Top,572
+trait_Shirt_13,Shirt,Classic Jersey,536
+trait_Shirt_14,Shirt,Suit Jacket,493
+trait_Shirt_15,Shirt,Meepet Tee,488
+trait_Shirt_16,Shirt,Halter Top,467
+trait_Shirt_17,Shirt,Basketball Jersey,433
+trait_Shirt_18,Shirt,Hoodie Up,412
+trait_Shirt_19,Shirt,Bare Chest,403
+trait_Shirt_20,Shirt,Jersey,400
+trait_Shirt_21,Shirt,Snoutz Tee,269
+trait_Shirt_22,Shirt,Lines,232
+trait_Shirt_23,Shirt,Tie-dyed Tee,121
+trait_Shirt_24,Shirt,Snoutz Skull Tee,103
+trait_Shirt_25,Shirt,Stylized Hoodie,101
+trait_Shirt_26,Shirt,CGA Shirt,101
+trait_Shirt_27,Shirt,Hawaiian,91
+trait_Shirt_28,Shirt,Heart Tee,77
+trait_Shirt_29,Shirt,Snoutz Jersey,64
+trait_Shirt_30,Shirt,Snoutz Hoodie,39
+trait_Shirt_31,Shirt,Flamingo Tee,37
+trait_Shirt_32,Shirt,Punk Tee,26
+trait_Shirt_33,Shirt,Glyph Shirt,6
+trait_Hair_Color_0,Hair_Color,Dark,11709
+trait_Hair_Color_1,Hair_Color,Brown,1795
+trait_Hair_Color_2,Hair_Color,Blond,1116
+trait_Hair_Color_3,Hair_Color,Bleached,890
+trait_Hair_Color_4,Hair_Color,Dyed Red,740
+trait_Hair_Color_5,Hair_Color,Blonde,612
+trait_Hair_Color_6,Hair_Color,Light Blue,353
+trait_Hair_Color_7,Hair_Color,Auburn,322
+trait_Hair_Color_8,Hair_Color,Silver,290
+trait_Hair_Color_9,Hair_Color,Purple Dye,210
+trait_Hair_Color_10,Hair_Color,Rainbow,99
+trait_Hair_Color_11,Hair_Color,Blue,71
+trait_Overshirt_0,Overshirt,Collar Shirt,1337
+trait_Overshirt_1,Overshirt,Trenchcoat,593
+trait_Overshirt_2,Overshirt,Athletic Jacket,503
+trait_Overshirt_3,Overshirt,Leather Jacket,461
+trait_Overshirt_4,Overshirt,Jean Jacket,316
+trait_Overshirt_Color_0,Overshirt_Color,Gray,239
+trait_Overshirt_Color_1,Overshirt_Color,Black,227
+trait_Overshirt_Color_2,Overshirt_Color,Yellow,194
+trait_Overshirt_Color_3,Overshirt_Color,Magenta,188
+trait_Overshirt_Color_4,Overshirt_Color,Purple,187
+trait_Overshirt_Color_5,Overshirt_Color,White,180
+trait_Overshirt_Color_6,Overshirt_Color,Red,165
+trait_Overshirt_Color_7,Overshirt_Color,Camo,127
+trait_Overshirt_Color_8,Overshirt_Color,Green,118
+trait_Overshirt_Color_9,Overshirt_Color,Red Plaid,66
+trait_Overshirt_Color_10,Overshirt_Color,Green Plaid,61
+trait_Overshirt_Color_11,Overshirt_Color,Blue Camo,31
+trait_Overshirt_Color_12,Overshirt_Color,Luxe,25
+trait_Overshirt_Color_13,Overshirt_Color,Argyle,20
+trait_Overshirt_Color_14,Overshirt_Color,Posh,12
+trait_Necklace_0,Necklace,Gold Chain,2161
+trait_Necklace_1,Necklace,Gold Necklace,1577
+trait_Earring_0,Earring,Gold Earring,859
+trait_Earring_1,Earring,Gold Earrings,782
+trait_Earring_2,Earring,Gold Hoops,401
+trait_Beard_0,Beard,Stubble,1585
+trait_Beard_1,Beard,Full,1449
+trait_Beard_2,Beard,Mustache,628
+trait_Beard_3,Beard,Big,369
+trait_Beard_4,Beard,Muttonchops,156
+trait_Beard_5,Beard,Biker Mustache,129
+trait_Beard_6,Beard,Medical Mask,113
+trait_Beard_Color_0,Beard_Color,Dark,3341
+trait_Beard_Color_1,Beard_Color,Brown,453
+trait_Beard_Color_2,Beard_Color,Blond,450
+trait_Beard_Color_3,Beard_Color,Silver,72
+trait_Glasses_Color_0,Glasses_Color,Charcoal,1232
+trait_Glasses_Color_1,Glasses_Color,White,1220
+trait_Glasses_Color_2,Glasses_Color,Dark Red,405
+trait_Hat_0,Hat,Headphones,1285
+trait_Hat_1,Hat,Cap,1002
+trait_Hat_2,Hat,Wool Hat,670
+trait_Hat_3,Hat,Backwards Cap,664
+trait_Hat_4,Hat,Trucker Cap,328
+trait_Hat_5,Hat,Bandana,166
+trait_Hat_6,Hat,Brimmed,135
+trait_Hat_7,Hat,Snoutz Cap,79
+trait_Hat_Color_0,Hat_Color,Black,920
+trait_Hat_Color_1,Hat_Color,Gray,863
+trait_Hat_Color_2,Hat_Color,White,745
+trait_Hat_Color_3,Hat_Color,Yellow,298
+trait_Hat_Color_4,Hat_Color,Purple,275
+trait_Hat_Color_5,Hat_Color,Magenta,253
+trait_Hat_Color_6,Hat_Color,Red,236
+trait_Hat_Color_7,Hat_Color,Camo,229
+trait_Hat_Color_8,Hat_Color,Green,209
+trait_Jersey_Number_6,Jersey_Number,0,140
+trait_Jersey_Number_9,Jersey_Number,1,129
+trait_Jersey_Number_7,Jersey_Number,2,133
+trait_Jersey_Number_0,Jersey_Number,3,168
+trait_Jersey_Number_3,Jersey_Number,4,146
+trait_Jersey_Number_4,Jersey_Number,5,145
+trait_Jersey_Number_5,Jersey_Number,6,142
+trait_Jersey_Number_8,Jersey_Number,7,133
+trait_Jersey_Number_2,Jersey_Number,8,148
+trait_Jersey_Number_1,Jersey_Number,9,149

@@ -1,0 +1,369 @@
+{
+    "graph": {
+        "id": "80ba40b4-bccc-42e0-b74f-06a8dc1642b6",
+        "name": "asdasd",
+        "subtitle": null,
+        "description": null,
+        "updated_at": "2016-03-17T17:43:26.948+02:00",
+        "created_at": "2016-03-17T15:02:34.000+00:00",
+        "status": 0,
+        "image": {
+            "path": "/system/graphs/missing.png",
+            "ref_name": null,
+            "ref_url": null
+        },
+        "nodes": [
+            {
+                "id": "3404d732-8413-4b6e-b5e7-03f507c07d81",
+                "type": "City",
+                "type_id": "dc9cabac-138a-551c-7e76-0b40a9cdf1c1",
+                "name": "Sao Paulo",
+                "description": "São Paulo is a municipality, metropolis and global city located in southeastern Brazil.",
+                "image": "http://www.aboutsaopaulo.com/images/sao-paulo-postcard.jpg",
+                "reference": null,
+                "properties": {}
+            },
+            {
+                "id": "6eec2176-f78b-4209-9de3-06c7b09d659f",
+                "type": "Person",
+                "type_id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Zeyno",
+                "description": "Sociologist",
+                "image": null,
+                "reference": "http://zeyno.com",
+                "properties": {
+                    "Skills": "Social Research",
+                    "Location": "New York"
+                }
+            },
+            {
+                "id": "7253ef60-0097-4015-9a7f-9d9c4c8b0cc5",
+                "type": "Organization",
+                "type_id": "17591a64-0692-759d-56c0-73f0fb6bb556",
+                "name": "Neo4j",
+                "description": "",
+                "image": "",
+                "reference": "",
+                "properties": {}
+            },
+            {
+                "id": "b6a2e686-24e6-4bfd-9f39-165112a8b10a",
+                "type": "Organization",
+                "type_id": "17591a64-0692-759d-56c0-73f0fb6bb556",
+                "name": "Graph Commons",
+                "description": null,
+                "image": null,
+                "reference": null,
+                "properties": {
+                    "Started at": "2011"
+                }
+            },
+            {
+                "id": "66c1e9d8-23fa-4e31-a5a2-dc4e1ec74ceb",
+                "type": "Person",
+                "type_id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Burak",
+                "description": "Artist",
+                "image": null,
+                "reference": null,
+                "properties": {}
+            },
+            {
+                "id": "5d8df7f6-ab2a-4c02-b777-53e0a6444068",
+                "type": "Person",
+                "type_id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Amber",
+                "description": "Painter of data",
+                "image": null,
+                "reference": "http://amber.net",
+                "properties": {
+                    "Actors": "34",
+                    "Skills": "Data Visualization",
+                    "Location": "Vancouver"
+                }
+            },
+            {
+                "id": "50c0477e-6762-41a7-bff4-920075381307",
+                "type": "Person",
+                "type_id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Carlos",
+                "description": "",
+                "image": "",
+                "reference": "",
+                "properties": {}
+            },
+            {
+                "id": "2fa3684a-5239-4d0a-a3a3-e8424c16c9e0",
+                "type": "Person",
+                "type_id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Marc",
+                "description": "",
+                "image": "",
+                "reference": "",
+                "properties": {}
+            },
+            {
+                "id": "fc308849-52e3-462c-9b30-e7e46db36764",
+                "type": "Person",
+                "type_id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Jessica",
+                "description": "Maker of kinetic furniture",
+                "image": null,
+                "reference": "http://jessica.com",
+                "properties": {
+                    "Actors": "36",
+                    "Skills": "Kinetic Sculpture",
+                    "Location": "New York"
+                }
+            },
+            {
+                "id": "3716c63c-87a1-4d11-b5d0-6e3d826af436",
+                "type": "Person",
+                "type_id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Ahmet",
+                "description": "Programmer",
+                "image": null,
+                "reference": "http://ahmet.com",
+                "properties": {
+                    "Actors": "29",
+                    "Skills": "Javascript",
+                    "Location": "Istanbul"
+                }
+            },
+            {
+                "id": "30fe69c6-9e84-4c94-a522-4784a68e6227",
+                "type": "Person",
+                "type_id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Sebastian",
+                "description": "",
+                "image": "",
+                "reference": "",
+                "properties": {}
+            },
+            {
+                "id": "cc637b1a-c32e-4d6e-ad7d-0e16cb81f146",
+                "type": "City",
+                "type_id": "dc9cabac-138a-551c-7e76-0b40a9cdf1c1",
+                "name": "Istanbul",
+                "description": "Istanbul is the largest city in Turkey, constituting the country's economic, cultural, and historical heart.",
+                "image": "http://www.photos4travel.com/sites/default/files/Bosphorus-Istanbul.jpg",
+                "reference": null,
+                "properties": {}
+            },
+            {
+                "id": "413859ff-a93c-4762-95c4-d2761f4d54d3",
+                "type": "City",
+                "type_id": "dc9cabac-138a-551c-7e76-0b40a9cdf1c1",
+                "name": "Hong Kong",
+                "description": "",
+                "image": "",
+                "reference": "",
+                "properties": {}
+            },
+            {
+                "id": "f62a6eec-4c99-4c73-8b2f-f2926c6b391d",
+                "type": "City",
+                "type_id": "dc9cabac-138a-551c-7e76-0b40a9cdf1c1",
+                "name": "New York",
+                "description": "",
+                "image": "",
+                "reference": "",
+                "properties": {}
+            },
+            {
+                "id": "a3b34371-b9cf-4c97-b7d1-d216dc56ef05",
+                "type": "City",
+                "type_id": "dc9cabac-138a-551c-7e76-0b40a9cdf1c1",
+                "name": "Stockholm",
+                "description": "",
+                "image": "",
+                "reference": "",
+                "properties": {}
+            }
+        ],
+        "edges": [
+            {
+                "from": "7253ef60-0097-4015-9a7f-9d9c4c8b0cc5",
+                "to": "a3b34371-b9cf-4c97-b7d1-d216dc56ef05",
+                "name": "BASED_IN",
+                "type_id": "f8eac6b1-fa06-b392-271d-18b74311825e",
+                "id": "2218440c-f427-40a7-b0ff-277aa2df8e16",
+                "user_id": "f6bf26e7-f75e-43d9-bdd6-11f869e4c2ed",
+                "weight": 1,
+                "directed": 1,
+                "properties": {}
+            },
+            {
+                "from": "b6a2e686-24e6-4bfd-9f39-165112a8b10a",
+                "to": "f62a6eec-4c99-4c73-8b2f-f2926c6b391d",
+                "name": "BASED_IN",
+                "type_id": "f8eac6b1-fa06-b392-271d-18b74311825e",
+                "id": "2acca297-ae2b-485a-8e73-f6af9b2dc103",
+                "user_id": "f6bf26e7-f75e-43d9-bdd6-11f869e4c2ed",
+                "weight": 1,
+                "directed": 1,
+                "properties": {}
+            },
+            {
+                "from": "66c1e9d8-23fa-4e31-a5a2-dc4e1ec74ceb",
+                "to": "50c0477e-6762-41a7-bff4-920075381307",
+                "name": "COLLABORTES",
+                "type_id": "973bcad4-8a3c-8079-bc17-1d97684629ef",
+                "id": "a223aa0a-bedd-4bff-b9cf-ceeaea1cdf14",
+                "user_id": "f6bf26e7-f75e-43d9-bdd6-11f869e4c2ed",
+                "weight": 1,
+                "directed": 1,
+                "properties": {}
+            },
+            {
+                "from": "66c1e9d8-23fa-4e31-a5a2-dc4e1ec74ceb",
+                "to": "2fa3684a-5239-4d0a-a3a3-e8424c16c9e0",
+                "name": "COLLABORTES",
+                "type_id": "973bcad4-8a3c-8079-bc17-1d97684629ef",
+                "id": "ee2119f7-3fe3-4439-a9ec-11c55e0166c8",
+                "user_id": "f6bf26e7-f75e-43d9-bdd6-11f869e4c2ed",
+                "weight": 1,
+                "directed": 1,
+                "properties": {}
+            },
+            {
+                "from": "66c1e9d8-23fa-4e31-a5a2-dc4e1ec74ceb",
+                "to": "5d8df7f6-ab2a-4c02-b777-53e0a6444068",
+                "name": "COLLABORTES",
+                "type_id": "973bcad4-8a3c-8079-bc17-1d97684629ef",
+                "id": "3744c95f-d059-4223-8baf-4518e8ee3c06",
+                "user_id": "f6bf26e7-f75e-43d9-bdd6-11f869e4c2ed",
+                "weight": 1,
+                "directed": 1,
+                "properties": {}
+            },
+            {
+                "from": "66c1e9d8-23fa-4e31-a5a2-dc4e1ec74ceb",
+                "to": "413859ff-a93c-4762-95c4-d2761f4d54d3",
+                "name": "BASED_IN",
+                "type_id": "f8eac6b1-fa06-b392-271d-18b74311825e",
+                "id": "21d770c3-6138-4b67-805d-1303bb9be50f",
+                "user_id": "f6bf26e7-f75e-43d9-bdd6-11f869e4c2ed",
+                "weight": 1,
+                "directed": 1,
+                "properties": {}
+            },
+            {
+                "from": "66c1e9d8-23fa-4e31-a5a2-dc4e1ec74ceb",
+                "to": "fc308849-52e3-462c-9b30-e7e46db36764",
+                "name": "COLLABORTES",
+                "type_id": "973bcad4-8a3c-8079-bc17-1d97684629ef",
+                "id": "81d27864-1a1a-47f7-affd-859e1cbb6468",
+                "user_id": "f6bf26e7-f75e-43d9-bdd6-11f869e4c2ed",
+                "weight": 1,
+                "directed": 1,
+                "properties": {}
+            },
+            {
+                "from": "3716c63c-87a1-4d11-b5d0-6e3d826af436",
+                "to": "cc637b1a-c32e-4d6e-ad7d-0e16cb81f146",
+                "name": "BASED_IN",
+                "type_id": "f8eac6b1-fa06-b392-271d-18b74311825e",
+                "id": "22a203d3-f84c-461c-8d27-6a8924a794cd",
+                "user_id": "f6bf26e7-f75e-43d9-bdd6-11f869e4c2ed",
+                "weight": 1,
+                "directed": 1,
+                "properties": {}
+            },
+            {
+                "from": "30fe69c6-9e84-4c94-a522-4784a68e6227",
+                "to": "cc637b1a-c32e-4d6e-ad7d-0e16cb81f146",
+                "name": "BASED_IN",
+                "type_id": "f8eac6b1-fa06-b392-271d-18b74311825e",
+                "id": "38f722d5-11e7-45f5-bd2d-43786278ff50",
+                "user_id": "f6bf26e7-f75e-43d9-bdd6-11f869e4c2ed",
+                "weight": 1,
+                "directed": 1,
+                "properties": {}
+            }
+        ],
+        "nodeTypes": [
+            {
+                "id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Person",
+                "name_alias": null,
+                "description": null,
+                "image": null,
+                "image_as_icon": false,
+                "color": "#9467bd",
+                "properties": [
+                    {
+                        "name": "Location",
+                        "name_alias": "Location"
+                    },
+                    {
+                        "name": "Skills",
+                        "name_alias": "Skills"
+                    },
+                    {
+                        "name": "Actors",
+                        "name_alias": "Actors"
+                    }
+                ],
+                "hide_name": null,
+                "size": "metric_degree",
+                "size_limit": 48
+            },
+            {
+                "id": "17591a64-0692-759d-56c0-73f0fb6bb556",
+                "name": "Organization",
+                "name_alias": null,
+                "description": null,
+                "image": null,
+                "image_as_icon": false,
+                "color": "#e377c2",
+                "properties": [
+                    {
+                        "name": "Started at",
+                        "name_alias": "Started at"
+                    }
+                ],
+                "hide_name": null,
+                "size": "metric_degree",
+                "size_limit": 48
+            },
+            {
+                "id": "dc9cabac-138a-551c-7e76-0b40a9cdf1c1",
+                "name": "City",
+                "name_alias": null,
+                "description": null,
+                "image": null,
+                "image_as_icon": false,
+                "color": "#e377c2",
+                "properties": [],
+                "hide_name": null,
+                "size": "metric_degree",
+                "size_limit": 48
+            }
+        ],
+        "edgeTypes": [
+            {
+                "id": "973bcad4-8a3c-8079-bc17-1d97684629ef",
+                "name": "COLLABORTES",
+                "name_alias": null,
+                "description": null,
+                "weighted": 1,
+                "directed": 1,
+                "durational": null,
+                "color": "#e377c2",
+                "properties": []
+            },
+            {
+                "id": "f8eac6b1-fa06-b392-271d-18b74311825e",
+                "name": "BASED_IN",
+                "name_alias": null,
+                "description": null,
+                "weighted": 1,
+                "directed": 1,
+                "durational": null,
+                "color": "#2ca02c",
+                "properties": []
+            }
+        ]
+    }
+}

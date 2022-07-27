@@ -1,0 +1,77 @@
+{
+    "graph": {
+        "name": "template",
+        "nodes": [
+            {
+                "id": "Ivan",
+                "type": "Person",
+                "type_id": "dc9cabac-138a-551c-7e76-0b40a9cdf1c1",
+                "name": "Ivan",
+                "properties": {
+                    "Generator": "34"
+                }
+            },
+            {
+                "id": "Ivan2",
+                "type": "Whitelister",
+                "type_id": "dc9cabac-138a-551c-7e76-0b40a9cdf1c1",
+                "name": "Ivan2",
+                "properties": {
+                    "Received": "5"
+                }
+            }
+        ],
+        "edges": [
+            {
+                "from": "Ivan",
+                "to": "Ivan2",
+                "type_id": "973bcad4-8a3c-8079-bc17-1d97684629ef",
+                "name": "Flow",
+                "weight": 6,
+                "directed": 1
+            },
+            {
+                "from": "Ivan2",
+                "to": "Ivan",
+                "type_id": "973bcad4-8a3c-8079-bc17-1d97684629ef",
+                "name": "Flow",
+                "weight": 1,
+                "directed": 1
+            }
+        ],
+        "nodeTypes": [
+            {
+                "id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315e",
+                "name": "Person",
+                "color": "#9467bd",
+                "size": "metric_degree",
+                "properties": [
+                    {
+                        "name": "Generator",
+                        "name_alias": "Generator"
+                    }
+                ]
+            },
+            {
+                "id": "39431b2c-8b0a-7a06-5d4a-f4a6beef315f",
+                "name": "Whitelister",
+                "color": "#16ba97",
+                "size": "metric_degree",
+                "properties": [
+                    {
+                        "name": "Received",
+                        "name_alias": "Received"
+                    }
+                ]
+            }
+        ],
+        "edgeTypes": [
+            {
+                "id": "973bcad4-8a3c-8079-bc17-1d97684629ef",
+                "name": "Flow",
+                "weighted": 1,
+                "directed": 1
+            }
+        ]
+    }
+}
