@@ -1,0 +1,175 @@
+---
+title: "Processing"
+author: 'Team #3'
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+```{r warnign=FALSE}
+setwd("~/Desktop/Thesis/code")
+options(max.print=1000000)
+library(readr)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(data.table)
+library(rattle)
+library(fastDummies)
+library(stargazer)
+library(glmnet)
+library(caret)
+library(ISLR) #contains Hitters dataset
+library(rpart) #for fitting decision trees
+library(rpart.plot) #for plotting decision trees
+```
+
+```{r}
+#colnames(df)
+```
+
+# Choose variables
+```{r}
+rtdf <- select(df, price_in_usd, Close, date, winner_flow, winner_total_sold, winner_total_bought, prev_price, cur_increased, time_from_prev, whitelisted, whitelisted_count, trait_Type, trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number, trait_Necklace, trait_Earring)
+rtdf[is.na(rtdf)] <- 0
+
+rtdf$prev_price = log(rtdf$prev_price)
+rtdf$prev_price[which(!is.finite(rtdf$prev_price))] <- 0
+
+colnms = colnames(rtdf)
+c = 0
+for (i in colnms) {
+  if (c > 10) {
+    print(i)
+    rtdf <- dummy_cols(rtdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+  }
+  c = c + 1
+}
+
+rtdf = rtdf[,!(names(rtdf) %in% c(
+  "trait_Shoes_Color_0",
+  "trait_Pants_Color_0",
+  "trait_Pants_Color_19",
+  "trait_Shirt_Color_0",
+  "trait_Overshirt_Color_0",
+  "trait_Hat_Color_0",
+  "trait_Hair_Color_0",
+  "trait_Beard_Color_0", # no beard without color
+  "trait_Glasses_Color_0",
+  "trait_Jersey_Number_0", # no Jersey stuff without number
+  
+  "trait_Necklace_0",
+  "trait_Earring_0",
+  
+  "trait_Shirt_18", # Don't know why, but hoodie only exist without oveshirt
+  
+  "trait_Hat_Color_1",
+  "trait_Beard_Color_1",
+  "trait_Overshirt_Color_1",
+  "trait_Glasses_Color_1",
+  "trait_Hair_Color_1",
+  "trait_Shirt_Color_1",
+  "trait_Shoes_Color_1",
+  
+  "trait_Type_1",
+  "trait_Shoes_1",
+  "trait_Pants_1",
+  "trait_Shirt_1",
+  "trait_Overshirt_0",
+  "trait_Hat_0",
+  "trait_Hair_Style_1",
+  "trait_Beard_0",
+  "trait_Glasses_0",
+  "trait_Jersey_Number_1"
+  ))]
+```
+
+# Date manipulation
+## Month
+```{r}
+rtdf$month<- strftime(rtdf$date,"%m")
+rtdf <- dummy_cols(rtdf, select_columns = "month", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+rtdf$weekday <- weekdays(as.Date(df$date))
+rtdf <- dummy_cols(rtdf, select_columns = "weekday", remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+
+rtdf = rtdf[,!(names(rtdf) %in% c("date", "weekday_Monday"))]
+colnames(rtdf)
+```
+
+# First regression
+```{r}
+reg1 = lm(log(price_in_usd) ~ ., data = rtdf)
+```
+
+# Second regression
+```{r}
+rtdf <- select(df, price_in_usd, Close, date, winner_flow, winner_total_sold, winner_total_bought, prev_price, cur_increased, time_from_prev, whitelisted, whitelisted_count, trait_Type, trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number, trait_Necklace, trait_Earring)
+rtdf[is.na(rtdf)] <- 0
+
+rtdf$prev_price = log(rtdf$prev_price)
+rtdf$prev_price[which(!is.finite(rtdf$prev_price))] <- 0
+
+rtdf$trait_Pants_Color[rtdf$trait_Pants_Color==19] <- 0
+
+# Manipulation
+rtdf$trait_Shoes_c <- paste(rtdf$trait_Shoes_Color, rtdf$trait_Shoes)
+rtdf$trait_Pants_c <- paste(rtdf$trait_Pants_Color, rtdf$trait_Pants)
+rtdf$trait_Shirt_c <- paste(rtdf$trait_Shirt_Color, rtdf$trait_Shirt)
+rtdf$trait_Overshirt_c <- paste(rtdf$trait_Overshirt_Color, rtdf$trait_Overshirt)
+rtdf$trait_Hat_c <- paste(rtdf$trait_Hat_Color, rtdf$trait_Hat)
+rtdf$trait_Hair_c <- paste(rtdf$trait_Hair_Color, rtdf$trait_Hair_Style)
+rtdf$trait_Beard_c <- paste(rtdf$trait_Beard_Color, rtdf$trait_Beard)
+rtdf$trait_Glasses_c <- paste(rtdf$trait_Glasses_Color, rtdf$trait_Glasses)
+
+rtdf <- subset(rtdf, select = -c(trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color))
+
+colnms = colnames(rtdf)
+c = 0
+for (i in colnms) {
+  if (c > 10) {
+    print(i)
+    rtdf <- dummy_cols(rtdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+  }
+  c = c + 1
+}
+
+rtdf <- subset(rtdf, select = -c(`trait_Shoes_c_0 2`, `trait_Shoes_c_0 7`, `trait_Shoes_c_0 8`, `trait_Shoes_c_0 10`, `trait_Shoes_c_0 11`, `trait_Shoes_c_0 12`, `trait_Shoes_c_0 14`, `trait_Shoes_c_0 15`, `trait_Shoes_c_0 16`, `trait_Shoes_c_0 17`, `trait_Shoes_c_0 18`, `trait_Shoes_c_0 19`, `trait_Shoes_c_0 20`, `trait_Shoes_c_0 21`, `trait_Shoes_c_0 22`, `trait_Pants_c_0 7`, `trait_Pants_c_0 9`, `trait_Shirt_c_0 2`, `trait_Shirt_c_0 4`, `trait_Shirt_c_0 7`, `trait_Shirt_c_0 11`, `trait_Shirt_c_0 15`, `trait_Shirt_c_0 20`, `trait_Shirt_c_0 23`, `trait_Shirt_c_0 24`, `trait_Shirt_c_0 25`, `trait_Shirt_c_0 26`, `trait_Shirt_c_0 27`, `trait_Shirt_c_0 28`, `trait_Shirt_c_0 29`, `trait_Shirt_c_0 32`, `trait_Shirt_c_0 33`, `trait_Shirt_c_0 34`, `trait_Overshirt_c_0 0`, `trait_Overshirt_c_0 2`, `trait_Overshirt_c_0 4`, `trait_Overshirt_c_0 5`, `trait_Hat_c_0 0`, `trait_Hat_c_0 6`, `trait_Hat_c_0 7`, `trait_Hair_c_0 3`, `trait_Hair_c_0 21`, `trait_Beard_c_0 0`, `trait_Beard_c_0 7`, `trait_Glasses_c_0 0`, `trait_Glasses_c_0 1`, `trait_Glasses_c_0 2`, `trait_Glasses_c_0 4`, `trait_Glasses_c_0 5`, `trait_Glasses_c_0 8`))
+
+rtdf = rtdf[,!(names(rtdf) %in% c(
+  "trait_Jersey_Number_0",
+  "trait_Jersey_Number_1",
+  "trait_Necklace_0",
+  "trait_Earring_0",
+
+  "trait_Type_1",
+  "trait_Shoes_c_0 1",
+  "trait_Pants_c_0 1",
+  "trait_Shirt_c_0 1",
+  "trait_Overshirt_c_0 1",
+  "trait_Hat_c_0 1",
+  "trait_Hair_c_0 1",
+  "trait_Beard_c_0 1",
+  "trait_Glasses_c_0 1"
+))]
+colnames(rtdf)
+
+
+rtdf$month<- strftime(rtdf$date,"%m")
+rtdf <- dummy_cols(rtdf, select_columns = "month", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+rtdf$weekday <- weekdays(as.Date(df$date))
+rtdf <- dummy_cols(rtdf, select_columns = "weekday", remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+
+rtdf = rtdf[,!(names(rtdf) %in% c("date", "weekday_Monday"))]
+colnames(rtdf)
+```
+
+```{r}
+reg2 = lm(log(price_in_usd) ~ ., data = rtdf)
+
+stargazer(reg1, reg2, title="Regression Results", align=TRUE, type="text")
+```

@@ -1,0 +1,276 @@
+---
+title: "Processing"
+author: "Team #3"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r warnign=FALSE}
+setwd("~/Desktop/Thesis/code")
+options(max.print=1000000)
+library(readr)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(data.table)
+library(rattle)
+library(fastDummies)
+library(stargazer)
+library(glmnet)
+library(caret)
+library(ISLR) #contains Hitters dataset
+library(rpart) #for fitting decision trees
+library(rpart.plot) #for plotting decision trees
+```
+
+## Dataset preparation
+
+```{r warnign=FALSE}
+tdf <- read_csv("../data/MB_Traits_processed_continouse&sum.csv", show_col_types = FALSE)
+tdf = tdf %>% filter(price_in_usd > 0)
+tdf = tdf %>% filter(trait_Type != 7)
+tdf[is.na(tdf)] <- 0
+dummies_StartsFrom = 6
+rating_tdf <- read_csv("./data/AllRating.csv")
+tdf <- merge(tdf, rating_tdf, by = 'token_id')
+
+tdf$winner_flow <- tdf$winner_total_sold/tdf$winner_total_bought
+tdf = tdf[,!(names(tdf) %in% c("date"))]
+```
+
+# Choose variables
+
+```{r}
+pcatdf <- select(tdf, score_rating, Rating, trait_Type, trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number, trait_Necklace, trait_Earring)
+pcatdf[is.na(pcatdf)] <- 0
+
+rtdf <- pcatdf
+
+colnms = colnames(rtdf)
+c = 0
+for (i in colnms) {
+  if (c > 1) {
+    print(i)
+    rtdf <- dummy_cols(rtdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+  }
+  c = c + 1
+}
+
+rtdf = rtdf[,!(names(rtdf) %in% c(
+  "trait_Shoes_Color_0",
+  "trait_Pants_Color_0",
+  "trait_Pants_Color_19",
+  "trait_Shirt_Color_0",
+  "trait_Overshirt_Color_0",
+  "trait_Hat_Color_0",
+  "trait_Hair_Color_0",
+  "trait_Beard_Color_0", # no beard without color
+  "trait_Glasses_Color_0",
+  "trait_Jersey_Number_0", # no Jersey stuff without number
+
+  "trait_Necklace_0",
+  "trait_Earring_0",
+
+  "trait_Shirt_18", # Don't know why, but hoodie only exist without oveshirt
+
+  "trait_Hat_Color_1",
+  "trait_Beard_Color_1",
+  "trait_Overshirt_Color_1",
+  "trait_Glasses_Color_1",
+  "trait_Hair_Color_1",
+  "trait_Shirt_Color_1",
+  "trait_Shoes_Color_1",
+
+  "trait_Type_1",
+  "trait_Shoes_1",
+  "trait_Pants_1",
+  "trait_Shirt_1",
+  "trait_Overshirt_0",
+  "trait_Hat_0",
+  "trait_Hair_Style_1",
+  "trait_Beard_0",
+  "trait_Glasses_0",
+  "trait_Jersey_Number_1"
+  ))]
+
+#if shirt then no overshity
+colnames(rtdf)
+```
+
+```{r}
+rtdf <- select(tdf, score_rating, Rating, trait_Type, trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number, trait_Necklace, trait_Earring)
+rtdf[is.na(rtdf)] <- 0
+
+rtdf$trait_Pants_Color[rtdf$trait_Pants_Color==19] <- 0
+
+# Manipulation
+rtdf$trait_Shoes_c <- paste(rtdf$trait_Shoes_Color, rtdf$trait_Shoes)
+rtdf$trait_Pants_c <- paste(rtdf$trait_Pants_Color, rtdf$trait_Pants)
+rtdf$trait_Shirt_c <- paste(rtdf$trait_Shirt_Color, rtdf$trait_Shirt)
+rtdf$trait_Overshirt_c <- paste(rtdf$trait_Overshirt_Color, rtdf$trait_Overshirt)
+rtdf$trait_Hat_c <- paste(rtdf$trait_Hat_Color, rtdf$trait_Hat)
+rtdf$trait_Hair_c <- paste(rtdf$trait_Hair_Color, rtdf$trait_Hair_Style)
+rtdf$trait_Beard_c <- paste(rtdf$trait_Beard_Color, rtdf$trait_Beard)
+rtdf$trait_Glasses_c <- paste(rtdf$trait_Glasses_Color, rtdf$trait_Glasses)
+
+rtdf <- subset(rtdf, select = -c(trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color))
+
+colnms = colnames(rtdf)
+c = 0
+for (i in colnms) {
+  if (c > 1) {
+    print(i)
+    rtdf <- dummy_cols(rtdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+  }
+  c = c + 1
+}
+
+rtdf <- subset(rtdf, select = -c(`trait_Shoes_c_0 2`, `trait_Shoes_c_0 7`, `trait_Shoes_c_0 8`, `trait_Shoes_c_0 10`, `trait_Shoes_c_0 11`, `trait_Shoes_c_0 12`, `trait_Shoes_c_0 14`, `trait_Shoes_c_0 15`, `trait_Shoes_c_0 16`, `trait_Shoes_c_0 17`, `trait_Shoes_c_0 18`, `trait_Shoes_c_0 19`, `trait_Shoes_c_0 20`, `trait_Shoes_c_0 21`, `trait_Shoes_c_0 22`, `trait_Pants_c_0 7`, `trait_Pants_c_0 9`, `trait_Shirt_c_0 2`, `trait_Shirt_c_0 4`, `trait_Shirt_c_0 7`, `trait_Shirt_c_0 11`, `trait_Shirt_c_0 15`, `trait_Shirt_c_0 20`, `trait_Shirt_c_0 23`, `trait_Shirt_c_0 24`, `trait_Shirt_c_0 25`, `trait_Shirt_c_0 26`, `trait_Shirt_c_0 27`, `trait_Shirt_c_0 28`, `trait_Shirt_c_0 29`, `trait_Shirt_c_0 32`, `trait_Shirt_c_0 33`, `trait_Shirt_c_0 34`, `trait_Overshirt_c_0 0`, `trait_Overshirt_c_0 2`, `trait_Overshirt_c_0 4`, `trait_Overshirt_c_0 5`, `trait_Hat_c_0 0`, `trait_Hat_c_0 6`, `trait_Hat_c_0 7`, `trait_Hair_c_0 3`, `trait_Hair_c_0 21`, `trait_Beard_c_0 0`, `trait_Beard_c_0 7`, `trait_Glasses_c_0 0`, `trait_Glasses_c_0 1`, `trait_Glasses_c_0 2`, `trait_Glasses_c_0 4`, `trait_Glasses_c_0 5`, `trait_Glasses_c_0 8`))
+
+rtdf = rtdf[,!(names(rtdf) %in% c(
+  "trait_Jersey_Number_0",
+  "trait_Jersey_Number_1",
+  "trait_Necklace_0",
+  "trait_Earring_0",
+
+  "trait_Type_1",
+  "trait_Shoes_c_0 1",
+  "trait_Pants_c_0 1",
+  "trait_Shirt_c_0 1",
+  "trait_Overshirt_c_0 1",
+  "trait_Hat_c_0 1",
+  "trait_Hair_c_0 1",
+  "trait_Beard_c_0 1",
+  "trait_Glasses_c_0 1"
+))]
+colnames(rtdf)
+```
+
+```{r}
+reg1 = lm(score_rating ~ . -Rating, data = rtdf)
+reg2 = lm(Rating ~ . -score_rating, data = rtdf)
+
+stargazer(reg1, reg2, title="Regression Results", align=TRUE, type="text")
+```
+
+https://www.statology.org/variance-inflation-factor-r/
+
+```{r}
+
+model_summ <-summary(reg1)
+mean(model_summ$residuals^2)
+model_summ <-summary(reg2)
+mean(model_summ$residuals^2)
+car::vif(reg2)
+#> 5 is bad
+#alias(reg1)
+```
+
+## Elastic Net
+
+```{r}
+set.seed(42) # Set seed for reproducibility
+
+n <- dim(rtdf)[1]    # Number of observations
+p <- dim(rtdf)[2]     # Number of predictors included in model
+
+xdf <- select(rtdf, -c(Rating, score_rating))
+x <- data.matrix(xdf)
+y <- rtdf$Rating
+#rownames(pcaMatrix) <- df$token_id
+
+# Split data into train (2/3) and test (1/3) sets
+train_rows <- sample(1:n, .66*n)
+x.train <- x[train_rows, ]
+x.test <- x[-train_rows, ]
+
+y.train <- y[train_rows]
+y.test <- y[-train_rows]
+
+list.of.fits <- list()
+for (i in 0:10) {
+  fit.name <- paste0("alpha", i/10)
+
+  list.of.fits[[fit.name]] <-
+    cv.glmnet(x.train, y.train, type.measure="mse", alpha=i/10,
+      family="gaussian")
+}
+
+results <- data.frame()
+for (i in 0:10) {
+  fit.name <- paste0("alpha", i/10)
+
+  predicted <-
+    predict(list.of.fits[[fit.name]],
+      s=list.of.fits[[fit.name]]$lambda.1se, newx=x.test)
+
+  mse <- mean((y.test - predicted)^2)
+
+  temp <- data.frame(alpha=i/10, mse=mse, fit.name=fit.name)
+  results <- rbind(results, temp)
+}
+
+results
+```
+
+#https://www.science.smith.edu/~jcrouser/SDS293/labs/lab10-r.html
+
+```{r}
+Ridge = 0
+#0.7
+reg1 <- cv.glmnet(x, y, type.measure="mse", alpha=0.1, family="gaussian")
+plot(reg1)
+#reg1 = reg1$lambda.min
+```
+
+```{r}
+coef(reg1)
+```
+
+```{r}
+#build the initial tree
+regtdf <- select(tdf, Rating, trait_Type, trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number, trait_Necklace, trait_Earring)
+regtdf[is.na(regtdf)] <- 0
+
+tree <- rpart(Rating ~ . -Rating, data = regtdf, control=rpart.control(cp=.0001))
+
+#view results
+#printcp(tree)
+
+#identify best cp value to use
+best <- tree$cptable[which.min(tree$cptable[,"xerror"]),"CP"]
+
+#produce a pruned tree based on the best cp value
+pruned_tree <- prune(tree, cp=best)
+
+yhat <- predict(pruned_tree, newdata = regtdf)
+actual <- regtdf$Rating
+mean((yhat-actual)^2)
+
+predict(reg1, newdata = p)
+
+#plot the pruned tree
+#prp(pruned_tree,
+#    faclen=0, #use full names for factor labels
+#    extra=1, #display number of obs. for each terminal node
+#    roundint=F, #don't round to integers in output
+#    digits=5) #display 5 decimal places in output
+```
+
+```{r}
+
+#png(filename="tree.png")
+fancyRpartPlot(pruned_tree)
+#prp(pruned_tree,
+#    faclen=0, #use full names for factor labels
+#    extra=1, #display number of obs. for each terminal node
+#    roundint=F, #don't round to integers in output
+#    digits=5) #display 5 decimal places in output
+#dev.off()
+```

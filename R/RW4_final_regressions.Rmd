@@ -1,0 +1,259 @@
+---
+title: "Processing"
+author: "Team #3"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r warnign=FALSE}
+setwd("~/Desktop/Thesis/code")
+options(max.print=1000000)
+library(readr)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(data.table)
+library(rattle)
+library(fastDummies)
+library(stargazer)
+library(glmnet)
+library(caret)
+library(ISLR) #contains Hitters dataset
+library(rpart) #for fitting decision trees
+library(rpart.plot) #for plotting decision trees
+```
+
+```{r}
+colnames(df)
+```
+
+# Date manipulation
+
+```{r}
+rtdf <- select(df, price_in_usd, Close, date, score_rating, Rating, rarityScore, winner_flow, winner_total_sold, winner_total_bought, prev_price, cur_increased, time_from_prev, whitelisted, whitelisted_count, trait_Type, trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number, trait_Necklace, trait_Earring)
+rtdf[is.na(rtdf)] <- 0
+
+rtdf$prev_price = log(rtdf$prev_price)
+rtdf$prev_price[which(!is.finite(rtdf$prev_price))] <- 0
+
+colnms = colnames(rtdf)
+c = 0
+for (i in colnms) {
+  if (c > 13) {
+    print(i)
+    rtdf <- dummy_cols(rtdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+  }
+  c = c + 1
+}
+
+rtdf = rtdf[,!(names(rtdf) %in% c(
+  "trait_Shoes_Color_0",
+  "trait_Pants_Color_0",
+  "trait_Pants_Color_19",
+  "trait_Shirt_Color_0",
+  "trait_Overshirt_Color_0",
+  "trait_Hat_Color_0",
+  "trait_Hair_Color_0",
+  "trait_Beard_Color_0", # no beard without color
+  "trait_Glasses_Color_0",
+  "trait_Jersey_Number_0", # no Jersey stuff without number
+
+  "trait_Necklace_0",
+  "trait_Earring_0",
+
+  "trait_Shirt_18", # Don't know why, but hoodie only exist without oveshirt
+
+  "trait_Hat_Color_1",
+  "trait_Beard_Color_1",
+  "trait_Overshirt_Color_1",
+  "trait_Glasses_Color_1",
+  "trait_Hair_Color_1",
+  "trait_Shirt_Color_1",
+  "trait_Shoes_Color_1",
+
+  "trait_Type_1",
+  "trait_Shoes_1",
+  "trait_Pants_1",
+  "trait_Shirt_1",
+  "trait_Overshirt_0",
+  "trait_Hat_0",
+  "trait_Hair_Style_1",
+  "trait_Beard_0",
+  "trait_Glasses_0",
+  "trait_Jersey_Number_1"
+  ))]
+```
+
+## Month
+
+```{r}
+rtdf$month<- strftime(rtdf$date,"%m")
+rtdf <- dummy_cols(rtdf, select_columns = "month", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+rtdf$weekday <- weekdays(as.Date(df$date))
+rtdf <- dummy_cols(rtdf, select_columns = "weekday", remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+
+rtdf = rtdf[,!(names(rtdf) %in% c("date", "weekday_Monday"))]
+#colnames(rtdf)
+```
+
+# First regression
+
+```{r}
+reg1 = lm(log(price_in_usd) ~ ., data = rtdf)
+reg1.1 = lm(log(price_in_usd) ~ . -rarityScore -Rating -score_rating, data = rtdf)
+```
+
+# Rarity coeficients
+
+```{r}
+coeffs1 <- data.frame(summary(reg1)$coefficients)
+c1 <- coeffs1[14:220,]
+c1$names = rownames(c1)
+c1$index <- 1:nrow(c1)
+#plot(c1$index, c1$Estimate)
+
+score <- read_csv("../data/MB_Traits_score.csv", show_col_types = FALSE)
+colnames(c1)
+colnames(score)
+
+jointdataset <- merge(c1, score, by = 'names') %>% filter(`Pr...t..`  < 0.05)
+jointdataset$est = abs(jointdataset$Estimate)
+jointdataset <- jointdataset %>% filter(est > 0.001)
+
+listofname = c('trait_Type', 'trait_Pants', 'trait_Pants_Color', 'trait_Shoes', 'trait_Shoes_Color', 'trait_Shirt', 'trait_Shirt_Color', 'trait_Hair_Style', 'trait_Hair_Color', 'trait_Glasses', 'trait_Glasses_Color', 'trait_Overshirt', 'trait_Overshirt_Color', 'trait_Beard', 'trait_Beard_Color', 'trait_Hat', 'trait_Hat_Color', 'trait_Jersey_Number', 'trait_Necklace', 'trait_Earring')
+
+for(subset in listofname){
+sub_jointdataset <- jointdataset %>% filter(grepl(subset, names))
+
+print(ggplot(sub_jointdataset, aes(x=score, y=Estimate)) +
+    ggtitle(subset) +
+    geom_point() +
+    geom_smooth(method=lm, formula = y ~ poly(x, 2), se=FALSE)
+)
+}
+```
+
+# Date manipulation
+
+```{r}
+rtdf <- select(df, price_in_usd, Close, date, score_rating, Rating, rarityScore, winner_flow, winner_total_sold, winner_total_bought, prev_price, cur_increased, time_from_prev, whitelisted, whitelisted_count)
+rtdf[is.na(rtdf)] <- 0
+rtdf$prev_price = log(rtdf$prev_price)
+rtdf$prev_price[which(!is.finite(rtdf$prev_price))] <- 0
+
+rtdf$month<- strftime(rtdf$date,"%m")
+rtdf <- dummy_cols(rtdf, select_columns = "month", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+rtdf$weekday <- weekdays(as.Date(df$date))
+rtdf <- dummy_cols(rtdf, select_columns = "weekday", remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+
+rtdf = rtdf[,!(names(rtdf) %in% c("date", "weekday_Monday"))]
+colnames(rtdf)
+```
+
+#Patch
+
+```{r}
+rtdf$score_rating = rtdf$score_rating/1000
+rtdf$rarityScore = rtdf$rarityScore/1000
+rtdf$Rating = rtdf$Rating/1000
+```
+
+# Second regression
+
+```{r}
+reg2 = lm(log(price_in_usd) ~ ., data = rtdf) # all
+reg3 = lm(log(price_in_usd) ~ . -rarityScore -Rating, data = rtdf) #<- score_rating
+reg4 = lm(log(price_in_usd) ~ . -score_rating -rarityScore, data = rtdf) # <- Rating
+reg5 = lm(log(price_in_usd) ~ . -score_rating -Rating, data = rtdf) # <-rarityScore
+reg6 = lm(log(price_in_usd) ~ . -score_rating -Rating -rarityScore, data = rtdf) #nothing
+
+stargazer(reg1, reg1.1, reg2, reg3, reg4, reg5, reg6, title="Regression Results", align=TRUE, type = "html", out = "fit_lm1.html")
+```
+
+# Third regression
+
+```{r}
+reg2 = lm(log(price_in_usd) ~ I(score_rating^2) + I(Rating^2) + I(rarityScore^2) + ., data = rtdf) # all
+
+reg3 = lm(log(price_in_usd) ~ I(score_rating^2) + . -rarityScore -Rating, data = rtdf) #<- score_rating
+reg4 = lm(log(price_in_usd) ~ I(Rating^2) + . -score_rating -rarityScore, data = rtdf) # <- Rating
+reg5 = lm(log(price_in_usd) ~ I(rarityScore^2) + . -score_rating -Rating, data = rtdf) # <-rarityScore
+
+#, digits=9
+stargazer(reg1, reg2, reg3, reg4, reg5, title="Regression Results", align=TRUE, type = "html", out = "fit_lm-power.html")
+```
+
+# Two markets
+
+# Date manipulation
+
+```{r}
+rtdf <- select(df, price_in_usd, first_transaction, Close, date, rarityScore, winner_flow, winner_total_sold, winner_total_bought, prev_price, whitelisted, whitelisted_count)
+rtdf[is.na(rtdf)] <- 0
+rtdf$prev_price = log(rtdf$prev_price)
+rtdf$prev_price[which(!is.finite(rtdf$prev_price))] <- 0
+
+rtdf$month<- strftime(rtdf$date,"%m")
+rtdf <- dummy_cols(rtdf, select_columns = "month", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+rtdf$weekday <- weekdays(as.Date(df$date))
+rtdf <- dummy_cols(rtdf, select_columns = "weekday", remove_selected_columns=TRUE, remove_first_dummy=FALSE)
+
+rtdf = rtdf[,!(names(rtdf) %in% c("date", "weekday_Monday"))]
+rtdf$rarityScore = rtdf$rarityScore/1000
+colnames(rtdf)
+```
+
+```{r}
+rtdf_market1 <- rtdf %>% filter(first_transaction == 1)
+rtdf_market2 <- rtdf %>% filter(first_transaction != 1)
+reg1 = lm(log(price_in_usd) ~ I(rarityScore^2) + . -first_transaction, data = rtdf_market1)
+reg2 = lm(log(price_in_usd) ~ I(rarityScore^2) + . -first_transaction, data = rtdf_market2)
+
+#stargazer(reg1, reg2, title="Regression Results", align=TRUE, type = "text")
+```
+
+```{r}
+c1 <- data.frame(summary(reg1)$coefficients)
+c2 <- data.frame(summary(reg2)$coefficients)
+
+c2$average <- 0
+c2$x <- 0
+c2$y <- 0
+c2$p1 <- 0
+c2$e1 <- 0
+
+for (i in 1:nrow(c2)) {
+  min1 = c1[i,]$Estimate - 2*c1[i,]$Std..Error
+  max1 = c1[i,]$Estimate + 2*c1[i,]$Std..Error
+  min2 = c2[i,]$Estimate - 2*c2[i,]$Std..Error
+  max2 = c2[i,]$Estimate + 2*c2[i,]$Std..Error
+
+  overlap = max(0, min(max1, max2) - max(min1, min2))
+  length = max1-min1 + max2-min2
+  lengthx = max1-min1
+  lengthy = max2-min2
+
+  c2[i,]$average = 2*overlap/length
+  c2[i,]$x = overlap/lengthx
+  c2[i,]$y = overlap/lengthy
+  c2[i,]$p1 = c1[i,]$Pr...t..
+  c2[i,]$e1 = c1[i,]$Estimate
+}
+
+#c2 <- c2 %>% filter(`Pr...t..` < 0.01)
+#c2 <- c2 %>% filter(p1 < 0.01)
+
+#summary(c2$x)
+#summary(c2$y)
+
+#dim(c2)[1]
+#dim(filter(c2, x == 0))[1]
+
+#View(filter(c2, x == 0))
+```

@@ -1,0 +1,112 @@
+---
+title: "Processing"
+author: "Team #3"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r warnign=FALSE}
+library(readr)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(data.table)
+library(fastDummies)
+```
+
+```{r}
+df <- read_csv("../data/MB_Traits_processed_continouse&sum.csv", show_col_types = FALSE)
+
+df = df %>% filter(price_in_usd > 0)
+```
+
+2 sum
+[1] 10.8
+[1] 8.4
+
+2 !sum
+[1] 11.3
+[1] 8.6
+
+3 sum
+[1] 9.4
+[1] 7
+
+3 !sum
+[1] 7.8
+[1] 7.3
+
+4 !sum
+[1] 11.3
+[1] 8.6
+
+4 sum
+[1] 12.5
+[1] 8.9
+
+```{r}
+colnames(df)
+head(df)
+```
+
+```{r}
+# remove trait_10761
+# trait_Tattoo_Motif
+
+pcaDf <- select(df, sum, first_transaction, trait_Type, trait_Shoes_Color, trait_Pants, trait_Pants_Color, trait_Shirt_Color, trait_Hair_Style, trait_Glasses, trait_Shoes, trait_Shirt, trait_Hair_Color, trait_Overshirt, trait_Overshirt_Color, trait_Necklace, trait_Earring, trait_Beard, trait_Beard_Color, trait_Glasses_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number)
+
+pcaDf[is.na(pcaDf)] <- 0
+
+pcaMatrix = data.matrix(pcaDf)
+rownames(pcaMatrix) <- df$token_id
+```
+
+```{r}
+pca <- prcomp(pcaMatrix, scale=TRUE)
+plot(pca$x[,1], pca$x[,2])
+pca.var.per[1]
+pca.var.per[2]
+```
+
+## A fancy looking plot that shows the PCs and the variation:
+
+```{r}
+pca.data <- data.frame(Sample=rownames(pca$x),
+  X=pca$x[,1],
+  Y=pca$x[,2])
+#pca.data
+
+ggplot(data=pca.data, aes(x=X, y=Y, label=Sample)) +
+  geom_text() +
+  xlab(paste("PC1 - ", pca.var.per[1], "%", sep="")) +
+  ylab(paste("PC2 - ", pca.var.per[2], "%", sep="")) +
+  theme_bw() +
+  ggtitle("My PCA Graph")
+```
+
+### Percent Variation
+
+```{r}
+pca.var <- pca$sdev^2
+pca.var.per <- round(pca.var/sum(pca.var)*100, 1)
+
+barplot(pca.var.per, main="Scree Plot", xlab="Principal Component", ylab="Percent Variation")
+```
+
+## Top traits
+
+```{r}
+loading_scores <- pca$rotation[,1]
+gene_scores <- abs(loading_scores) ## get the magnitudes
+gene_score_ranked <- sort(gene_scores, decreasing=TRUE)
+top_10_genes <- names(gene_score_ranked[1:30])
+
+#top_10_genes
+pca$rotation[top_10_genes,1]
+```

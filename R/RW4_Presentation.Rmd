@@ -1,0 +1,149 @@
+---
+title: "Processing"
+author: "Team #3"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r warnign=FALSE}
+setwd("~/Desktop/Thesis/code")
+options(max.print=1000000)
+library(readr)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(data.table)
+library(fastDummies)
+library(stargazer)
+```
+
+```{r}
+reg1 <- lm(price_in_usd ~ ., data = rdf)
+reg2 <- lm(price_in_usd ~ . -score_rating, data = rdf)
+stargazer(reg1, reg2, type="text")
+```
+
+```{r}
+rdf1 <- rdf %>% filter(first_transaction == 1)
+rdf2 <- rdf %>% filter(first_transaction != 1)
+
+reg1 = lm(log(price_in_usd) ~ . -token_id-first_transaction-time_from_prev-prev_price-trait_Shirt_34-trait_Shirt_18-trait_Shoes_22, data = rdf1)
+reg2 = lm(log(price_in_usd) ~ .-token_id-first_transaction-time_from_prev-prev_price-trait_Shirt_34-trait_Shirt_18-trait_Shoes_22, data = rdf2)
+stargazer(reg1, reg2, title="Regression Results", align=TRUE, type="text")
+```
+
+```{r}
+c1 <- data.frame(summary(reg1)$coefficients) %>% select(Estimate, Std..Error, Pr...t..)
+c2 <- data.frame(summary(reg2)$coefficients) %>% select(Estimate, Std..Error, Pr...t..)
+
+c2$average <- 0
+c2$x <- 0
+c2$y <- 0
+c2$p1 <- 0
+#c2$e1 <- 0
+
+for (i in 1:nrow(c2)) {
+  min1 = c1[i,]$Estimate - 2*c1[i,]$Std..Error
+  max1 = c1[i,]$Estimate + 2*c1[i,]$Std..Error
+  min2 = c2[i,]$Estimate - 2*c2[i,]$Std..Error
+  max2 = c2[i,]$Estimate + 2*c2[i,]$Std..Error
+
+  overlap = max(0, min(max1, max2) - max(min1, min2))
+  length = max1-min1 + max2-min2
+  lengthx = max1-min1
+  lengthy = max2-min2
+
+  c2[i,]$average = 2*overlap/length
+  c2[i,]$x = overlap/lengthx
+  c2[i,]$y = overlap/lengthy
+  c2[i,]$p1 = c1[i,]$Pr...t..
+}
+
+c2 <- c2 %>% filter(`Pr...t..` < 0.05)
+c2 <- c2 %>% filter(p1 < 0.05)
+
+#summary(c2$x)
+#summary(c2$y)
+
+# from 21
+# from 18
+
+dim(c2)[1]
+dim(filter(c2, x == 0))[1]
+
+View(filter(c2, x == 0))
+```
+
+LDPVS
+
+## Time coeficinets
+
+```{r}
+#reg= lm(log(price_in_usd) ~ . -token_id-first_transaction-time_from_prev-prev_price, data = rdf)
+
+coeffs1 <- data.frame(summary(reg)$coefficients)
+c1 <- tail(coeffs1, n =205)
+c1$names1 = rownames(c1)
+c1$index1 <- 1:nrow(c1)
+#plot(c1$index, c1$Estimate, type="line")
+c1$top <- c1$Estimate - c1$Std..Error*qt(0.975, 42)
+c1$down <- c1$Estimate + c1$Std..Error*qt(0.975, 42)
+
+#coeffs2 <- data.frame(summary(reg2)$coefficients)
+#c2 <- tail(coeffs2, n =205)
+#c2$index2 <- 1:nrow(c2)
+#lines(c2$index, c2$Estimate, col="pink")
+
+df.plot <-
+  data.frame(
+    y = c1$Estimate,
+    x = c1$index1,
+    lb = c1$top,
+    ub = c1$down
+  )
+df.plot %>% ggplot(aes(x, y)) + geom_point() +
+  geom_errorbar(aes(ymin = lb, ymax = ub), width = 0.1) +
+  geom_hline(aes(yintercept=0), linetype="dashed")
+```
+
+```{r}
+cur <- read_csv("../cur/ETH-USD.csv", show_col_types = FALSE) %>% filter(Date > "2021-05-03") %>% filter(Date < "2021-11-24")
+plot(cur$Date, cur$Open, type='line')
+```
+
+# Rarity coeficients
+
+```{r}
+#reg= lm(log(price_in_usd) ~ ., data = rdf)
+reg= lm(log(price_in_usd) ~ ., data = rdf %>% filter(first_transaction == 1))
+coeffs1 <- data.frame(summary(reg)$coefficients)
+c1 <- coeffs1[4:142,]
+c1$names = rownames(c1)
+c1$index <- 1:nrow(c1)
+plot(c1$index, c1$Estimate)
+
+score <- read_csv("../data/MB_Traits_score.csv", show_col_types = FALSE)
+colnames(c1)
+colnames(score)
+
+jointdataset <- merge(c1, score, by = 'names') %>% filter(`Pr...t..`  < 0.01)
+jointdataset$est = abs(jointdataset$Estimate)
+jointdataset <- jointdataset %>% filter(est > 0.001)
+
+plot(jointdataset$score, jointdataset$Estimate)
+
+fit <- lm(Estimate~score+I(score^2), data=jointdataset)
+
+ggp <- ggplot(jointdataset, aes(Estimate, score)) +    # Create ggplot2 scatterplot
+  geom_point()
+#ggp +                               # Add polynomial regression curve
+#  stat_smooth(method = "lm",
+#              formula = y ~ poly(x, 2),
+#              se = FALSE)
+```

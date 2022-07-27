@@ -1,0 +1,27 @@
+{
+  "name": "thesis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ethersproject/bignumber": "^5.5.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^16.11.7",
+    "@types/web3": "^1.2.2",
+    "api": "^4.1.0",
+    "cheerio": "^1.0.0-rc.12",
+    "coingecko-api": "^1.0.10",
+    "csv-parse": "^5.0.1",
+    "csv-writer": "^1.6.0",
+    "etherscan-api": "^10.0.5",
+    "fs-extra": "^10.0.0",
+    "moment": "^2.29.1",
+    "opensea-js": "^1.2.1",
+    "puppeteer": "^15.3.0",
+    "request-promise": "^4.2.6",
+    "web3": "^1.6.0"
+  }
+}

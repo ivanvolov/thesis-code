@@ -1,0 +1,84 @@
+---
+title: "Processing"
+author: "Team #3"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r warnign=FALSE}
+setwd("~/Desktop/Thesis/code")
+options(max.print=1000000)
+library(readr)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(data.table)
+library(fastDummies)
+library(stargazer)
+```
+
+```{r}
+rdf_filtered <- rdf %>% filter(first_transaction == 0)
+reg1 = lm(log(price_in_usd) ~ . -token_id-first_transaction-time_from_prev-prev_price, data = rdf_filtered)
+reg2 = lm(log(price_in_usd) ~ . -token_id-first_transaction, data = rdf_filtered)
+reg3 = lm(log(price_in_usd) ~ ., data = rdf3)
+stargazer(reg1, reg2, reg3, title="Regression Results", align=TRUE, type="text")
+```
+
+```{r}
+rdf1 <- rdf %>% filter(first_transaction == 1)
+rdf2 <- rdf %>% filter(first_transaction != 1)
+#rdf3 <- rdf %>% filter(first_transaction != 1)
+
+reg1= lm(log(price_in_usd) ~ . -token_id-first_transaction-time_from_prev-prev_price, data = rdf1)
+reg2 = lm(log(price_in_usd) ~ .-token_id-first_transaction-time_from_prev-prev_price, data = rdf2)
+#reg3 = lm(log(price_in_usd) ~ .-token_id-first_transaction, data = rdf3)
+stargazer(reg1, reg2, title="Regression Results", align=TRUE, type="text")
+```
+
+LDPVS
+
+## Time coeficinets
+
+```{r}
+summary(log(rdf$price_in_usd))
+
+coeffs1 <- data.frame(summary(reg1)$coefficients)
+c1 <- tail(coeffs1, n =205)
+c1$names1 = rownames(c1)
+c1$index1 <- 1:nrow(c1)
+plot(c1$index, c1$Estimate, type="line")
+
+
+coeffs2 <- data.frame(summary(reg2)$coefficients)
+c2 <- tail(coeffs2, n =205)
+c2$index2 <- 1:nrow(c2)
+lines(c2$index, c2$Estimate, col="pink")
+```
+
+# Rarity coeficients
+
+```{r}
+#reg= lm(log(price_in_usd) ~ ., data = rdf)
+reg= lm(log(price_in_usd) ~ ., data = rdf %>% filter(first_transaction == 1))
+coeffs1 <- data.frame(summary(reg)$coefficients)
+c1 <- coeffs1[4:142,]
+c1$names = rownames(c1)
+c1$index <- 1:nrow(c1)
+#plot(c1$index, c1$Estimate)
+
+score <- read_csv("../data/MB_Traits_score.csv", show_col_types = FALSE)
+colnames(c1)
+colnames(score)
+
+jointdataset <- merge(c1, score, by = 'names') %>% filter(`Pr...t..`  < 0.01)
+jointdataset$est = abs(jointdataset$Estimate)
+jointdataset <- jointdataset %>% filter(est > 0.001)
+plot(jointdataset$score, jointdataset$Estimate)
+```

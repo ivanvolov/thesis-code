@@ -1,0 +1,6 @@
+/node_modules
+*.json
+*.csv
+!*package.json
+!*package-lock.json
+.DS_Store

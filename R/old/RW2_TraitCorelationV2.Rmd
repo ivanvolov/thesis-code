@@ -1,0 +1,154 @@
+---
+title: "Processing"
+author: "Team #3"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readr)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(data.table)
+library(fastDummies)
+```
+
+```{r}
+df <- read_csv("../data/MB_Traits_processed_3.csv", show_col_types = FALSE)
+#df <- read_csv("../data/MB_Traits_processed_4.csv", show_col_types = FALSE)
+df = df %>% filter(price_in_usd > 0)
+```
+
+```{r}
+colnames(df)
+```
+
+```{r}
+
+# remove trait_10761
+# trait_Tattoo_Motif
+
+df2 <- select(df, price_in_usd, sum, trait_Shoes_Color, trait_Pants_Color, trait_Shirt_Color, trait_Overshirt_Color, trait_Hat_Color, trait_Glasses_Color, trait_Type, trait_Glasses, trait_Pants, trait_Hair_Style, trait_Shoes, trait_Shirt, trait_Hair_Color, trait_Overshirt, trait_Necklace, trait_Earring, trait_Beard, trait_Beard_Color, trait_Hat, trait_Jersey_Number)
+
+df2[is.na(df2)] <- 0
+head(df2)
+```
+
+```{r}
+colnames(df2)
+table(df$trait_Type)
+```
+
+```{r}
+#df2 <- subset(df2, select = -c(trait_Type_Dissected))
+```
+
+```{r}
+corr_simple <- function(data=df,sig=0.5){
+  #convert data to numeric in order to run correlations
+  #convert to factor first to keep the integrity of the data - each value will become a number rather than turn into NA
+  df_cor <- data %>% mutate_if(is.character, as.factor)
+  df_cor <- df_cor %>% mutate_if(is.factor, as.numeric)
+  #run a correlation and drop the insignificant ones
+  corr <- cor(df_cor)
+  #prepare to drop duplicates and correlations of 1
+  corr[lower.tri(corr,diag=TRUE)] <- NA
+  #drop perfect correlations
+  #corr[corr == 1] <- NA
+  #turn into a 3-column table
+  corr <- as.data.frame(as.table(corr))
+  #remove the NA values from above
+  corr <- na.omit(corr)
+  #select significant values
+  corr <- subset(corr, abs(Freq) > sig)
+  #sort by highest correlation
+  corr <- corr[order(-abs(corr$Freq)),]
+  #print table
+  print(corr)
+  #turn corr back into matrix in order to plot with corrplot
+  mtx_corr <- reshape2::acast(corr, Var1~Var2, value.var="Freq")
+
+  #plot correlations visually
+  corrplot(mtx_corr, is.corr=FALSE, tl.col="black", na.label=" ")
+}
+corr_simple(data = df2, sig=0.1)
+```
+
+```{r}
+reg = lm(price_in_usd ~ . -sum, data = df2)
+#reg = lm(log(price_in_usd) ~ log(sum), data = df2)
+summary(reg)
+#sum(summary(reg)$coefficients[ ,4] > 0.05 )
+```
+
+```{r}
+dim(df)
+
+a = df %>% group_by(winner) %>% summarize(count=n())
+b = df %>% group_by(seller) %>% summarize(count=n())
+
+all = b
+ggplot(data=all[!is.na(all$count),], aes(x=seller, y=count))+
+        geom_point(col='green') +
+        scale_y_continuous(breaks= seq(0, 100, by=5))
+
+# 0x7be8076f4ea4a4ad08075c2508e481d6c946d12b opensea contract address
+```
+
+```{r}
+#hist(df$trait_Type, breaks = 200)
+#ggplot(data=df2[!is.na(df2$price_in_usd), ], aes(x=price_in_usd)) +
+#        geom_histogram(fill="blue", binwidth = 1000)
+
+all <- df2 %>% filter(price_in_usd < 100000)
+hist(all$price_in_usd)
+
+all <- df2 %>% filter(price_in_usd < 100000)
+hist(all$price_in_usd)
+#ggplot(data=all[!is.na(all$price_in_usd), ], aes(x=price_in_usd)) +
+#        geom_histogram(fill="blue", binwidth = 10000) +
+#        scale_x_continuous(breaks= seq(0, 800000, by=1000))
+```
+
+```{r}
+all <- df2
+n1 = ggplot(data=all[!is.na(all$price_in_usd), ], aes(x=price_in_usd)) +
+        geom_histogram(fill="blue", binwidth = 1000)
+
+all <- df2 %>% filter(price_in_usd > 100000)
+n2 = ggplot(data=all[!is.na(all$price_in_usd), ], aes(x=price_in_usd)) +
+        geom_histogram(fill="blue", binwidth = 1000)
+all <- df2 %>% filter(price_in_usd < 100000 & price_in_usd > 35000)
+n3 = ggplot(data=all[!is.na(all$price_in_usd), ], aes(x=price_in_usd)) +
+        geom_histogram(fill="blue", binwidth = 1000)
+
+all <- df2 %>% filter(price_in_usd < 35000)
+n4 = ggplot(data=all[!is.na(all$price_in_usd), ], aes(x=price_in_usd)) +
+        geom_histogram(fill="blue", binwidth = 1000)
+
+grid.arrange(n1, n4, n3, n2) #Need package gridExtra
+```
+
+```{r}
+#colnames(df2)
+table(df$trait_Jersey_Number)
+```
+
+```{r}
+all <- df
+ggplot(data=all[!is.na(all$price_in_usd),], aes(x=trait_Type, y=price_in_usd))+
+        geom_point(col='blue') + geom_smooth(method = "lm", se=FALSE, color="black", aes(group=1)) +
+        scale_y_continuous(breaks= seq(0, 5000000, by=100000))
+
+all <- df
+ggplot(data=all[!is.na(all$price_in_usd),], aes(x=trait_Glasses, y=price_in_usd))+
+        geom_point(col='blue') + geom_smooth(method = "lm", se=FALSE, color="black", aes(group=1)) +
+        scale_y_continuous(breaks= seq(0, 5000000, by=100000))
+```

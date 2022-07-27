@@ -1,0 +1,222 @@
+---
+title: "Processing"
+author: "Team #3"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r warnign=FALSE}
+setwd("~/Desktop/Thesis/code")
+library(readr)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(data.table)
+library(fastDummies)
+```
+
+```{r}
+whitelist <- read_csv("../whitelist/whitelist.csv", show_col_types = FALSE)
+df <- read_csv("../data/MB_Traits_processed_continouse&sum.csv", show_col_types = FALSE)
+df = df %>% filter(price_in_usd > 0)
+df = df %>% filter(trait_Type != 7)
+df[is.na(df)] <- 0
+dummies_StartsFrom = 6
+rating_df <- read_csv("./data/AllRating.csv", show_col_types = FALSE)
+rarityScore_df <- read_csv("./data/RarityScore.csv", show_col_types = FALSE)
+
+df <- merge(df, rating_df, by = 'token_id')
+df <- merge(df, rarityScore_df, by = 'token_id')
+
+df$winner_flow <- df$winner_total_sold/df$winner_total_bought
+
+df$time_from_prev <- df$time_from_prev/60000
+
+#Currency
+currency_rates <- read_csv("../cur/ETH-USD.csv", show_col_types = FALSE) %>% select(Close, Date) %>% filter(Date >= '2021-05-03 ') %>% filter(Date <= '2021-11-24')
+currency_rates$Close<- as.numeric(currency_rates$Close)
+currency_rates$Date<- strftime(currency_rates$Date,"%m-%d")
+df$Date<- strftime(df$date,"%m-%d")
+df <- merge(df, currency_rates, by = 'Date')
+df = df[,!(names(df) %in% c("Date", "cur_to_usd_price"))]
+```
+
+### remove trait_10761
+
+### trait_Tattoo_Motif
+
+# Choose variables
+
+```{r}
+pcaDf <- select(df, score_rating, Rating, prev_price, cur_increased, whitelisted, whitelisted_count, date, price_in_usd, first_transaction, winner_total_sold, winner_total_bought, winner_flow, trait_Type, trait_Glasses, trait_Necklace, trait_Earring, trait_Beard)
+pcaDf[is.na(pcaDf)] <- 0
+
+rdf <- pcaDf
+
+colnms = colnames(rdf)
+c = 0
+for (i in colnms) {
+  if (c > 11) {
+    print(i)
+    rdf <- dummy_cols(rdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+  }
+  c = c + 1
+}
+```
+
+# Choose variables
+
+```{r}
+pcaDf <- select(df, score_rating, Rating, prev_price, cur_increased, whitelisted, whitelisted_count, date, price_in_usd, first_transaction, winner_total_sold, winner_total_bought, winner_flow, trait_Type, trait_Shoes_Color, trait_Pants, trait_Pants_Color, trait_Shirt_Color, trait_Hair_Style, trait_Glasses, trait_Shoes, trait_Shirt, trait_Hair_Color, trait_Overshirt, trait_Overshirt_Color, trait_Necklace, trait_Earring, trait_Beard, trait_Beard_Color, trait_Glasses_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number)
+pcaDf[is.na(pcaDf)] <- 0
+
+rdf <- pcaDf
+
+colnms = colnames(rdf)
+c = 0
+for (i in colnms) {
+  if (c > 11) {
+    print(i)
+    rdf <- dummy_cols(rdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+  }
+  c = c + 1
+}
+```
+
+```{r}
+rdf3 <- select(df, price_in_usd, score_rating, date, time_from_prev, first_transaction, prev_price, trait_Type)
+rdf3[is.na(rdf3)] <- 0
+rdf3 <- dummy_cols(rdf3, select_columns = "trait_Type", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+
+rdf3$day<- strftime(rdf3$date,"%m-%d")
+rdf3 <- dummy_cols(rdf3, select_columns = "day", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+rdf3 <- rdf3 %>% filter(first_transaction == 0)
+rdf3 = rdf3[,!(names(rdf3) %in% c("date", "first_transaction"))]
+```
+
+```{r}
+pcaDf <- select(df, token_id, time_from_prev, prev_price, score_rating, date, price_in_usd, first_transaction, trait_Type, trait_Shoes_Color, trait_Pants, trait_Pants_Color, trait_Shirt_Color, trait_Hair_Style, trait_Glasses, trait_Shoes, trait_Shirt, trait_Hair_Color, trait_Overshirt, trait_Overshirt_Color, trait_Necklace, trait_Earring, trait_Beard, trait_Beard_Color, trait_Glasses_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number)
+pcaDf[is.na(pcaDf)] <- 0
+
+rdf <- pcaDf
+
+# Pants manipulation
+rdf$trait_Pants_c <- paste(rdf$trait_Pants, rdf$trait_Pants_Color)
+rdf <- subset(rdf, select = -c(trait_Pants, trait_Pants_Color))
+
+# Shirt manipulation
+rdf$trait_Shirt_c <- paste(rdf$trait_Shirt, rdf$trait_Shirt_Color)
+rdf <- subset(rdf, select = -c(trait_Shirt, trait_Shirt_Color))
+
+# Overshirt manipulation
+rdf$trait_Overshirt_c <- paste(rdf$trait_Overshirt, rdf$trait_Overshirt_Color)
+rdf <- subset(rdf, select = -c(trait_Overshirt, trait_Overshirt_Color))
+
+# Shoes manipulation
+rdf$trait_Shoes_c <- paste(rdf$trait_Shoes, rdf$trait_Shoes_Color)
+rdf <- subset(rdf, select = -c(trait_Shoes, trait_Shoes_Color))
+
+colnms = colnames(rdf)
+c = 0
+for (i in colnms) {
+  if (c > dummies_StartsFrom) {
+    #print(i)
+    rdf <- dummy_cols(rdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+  }
+  c = c + 1
+}
+```
+
+```{r}
+pcaDf <- select(df, token_id, time_from_prev, prev_price, score_rating, date, price_in_usd, first_transaction, trait_Type, trait_Shoes_Color, trait_Pants, trait_Pants_Color, trait_Shirt_Color, trait_Hair_Style, trait_Glasses, trait_Shoes, trait_Shirt, trait_Hair_Color, trait_Overshirt, trait_Overshirt_Color, trait_Necklace, trait_Earring, trait_Beard, trait_Beard_Color, trait_Glasses_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number)
+pcaDf[is.na(pcaDf)] <- 0
+
+rdf <- pcaDf
+
+# Pants manipulation
+rdf$trait_Pants_c <- paste(rdf$trait_Pants, rdf$trait_Pants_Color)
+rdf <- subset(rdf, select = -c(trait_Pants, trait_Pants_Color))
+
+# Shirt manipulation
+rdf$trait_Shirt_c <- paste(rdf$trait_Shirt, rdf$trait_Shirt_Color)
+rdf <- subset(rdf, select = -c(trait_Shirt, trait_Shirt_Color))
+
+# Overshirt manipulation
+rdf$trait_Overshirt_c <- paste(rdf$trait_Overshirt, rdf$trait_Overshirt_Color)
+rdf <- subset(rdf, select = -c(trait_Overshirt, trait_Overshirt_Color))
+
+# Shoes manipulation
+rdf$trait_Shoes_c <- paste(rdf$trait_Shoes, rdf$trait_Shoes_Color)
+rdf <- subset(rdf, select = -c(trait_Shoes, trait_Shoes_Color))
+
+colnms = colnames(rdf)
+c = 0
+for (i in colnms) {
+  if (c > dummies_StartsFrom) {
+    #print(i)
+    rdf <- dummy_cols(rdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+  }
+  c = c + 1
+}
+```
+
+```{r}
+#-- trait_Shoes_Color
+#-- trait_Pants_Color
+#-- trait_Beard_Color
+#-- trait_Overshirt_Color
+#-- trait_Shirt_Color
+#-- trait_Jersey_Number
+#-- trait_Glasses_Color
+#-- trait_Hair_Color
+#-- trait_Hat_Color
+
+pcaDf <- select(df, token_id, time_from_prev, prev_price, score_rating, date, price_in_usd, first_transaction, trait_Type, trait_Pants, trait_Hair_Style, trait_Glasses, trait_Shoes, trait_Shirt, trait_Overshirt, trait_Necklace, trait_Earring, trait_Beard, trait_Hat)
+pcaDf[is.na(pcaDf)] <- 0
+
+rdf <- pcaDf
+
+colnms = colnames(rdf)
+c = 0
+for (i in colnms) {
+  if (c > dummies_StartsFrom) {
+    #print(i)
+    rdf <- dummy_cols(rdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+  }
+  c = c + 1
+}
+```
+
+# Select time dummies
+
+# No date
+
+```{r}
+rdf = rdf[,!(names(rdf) %in% c("date"))]
+```
+
+# Day
+
+```{r}
+rdf$day<- strftime(rdf$date,"%m-%d")
+rdf <- dummy_cols(rdf, select_columns = "day", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+rdf = rdf[,!(names(rdf) %in% c("date"))]
+```
+
+# Month
+
+```{r}
+rdf$month<- strftime(rdf$date,"%m")
+rdf <- dummy_cols(rdf, select_columns = "month", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+rdf = rdf[,!(names(rdf) %in% c("date"))]
+```
+
+```{r}
+colnames(rdf)
+```

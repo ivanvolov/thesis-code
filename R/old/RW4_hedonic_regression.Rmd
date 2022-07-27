@@ -1,0 +1,117 @@
+---
+title: "Processing"
+author: "Team #3"
+date: "1/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r warnign=FALSE}
+setwd("~/Desktop/Thesis/code")
+options(max.print=1000000)
+library(readr)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(data.table)
+library(fastDummies)
+```
+
+```{r}
+df <- read_csv("../data/MB_Traits_processed_continouse&sum.csv", show_col_types = FALSE)
+df = df %>% filter(price_in_usd > 0)
+df[is.na(df)] <- 0
+```
+
+```{r}
+colnames(df)
+#head(df)
+```
+
+#Filtration
+
+```{r}
+
+```
+
+```{r}
+rdf <- select(df, price_in_usd, total_price, first_transaction, token_id, sum, trait_Type, trait_Shoes_Color, trait_Pants, trait_Pants_Color, trait_Shirt_Color, trait_Hair_Style, trait_Glasses, trait_Shoes, trait_Shirt, trait_Hair_Color, trait_Overshirt, trait_Overshirt_Color, trait_Necklace, trait_Earring, trait_Beard, trait_Beard_Color, trait_Glasses_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number)
+
+
+# Pants manipulation
+rdf$trait_Pants_c <- paste(rdf$trait_Pants, rdf$trait_Pants_Color)
+rdf <- subset(rdf, select = -c(trait_Pants, trait_Pants_Color))
+
+# Shirt manipulation
+rdf$trait_Shirt_c <- paste(rdf$trait_Shirt, rdf$trait_Shirt_Color)
+rdf <- subset(rdf, select = -c(trait_Shirt, trait_Shirt_Color))
+
+# Overshirt manipulation
+rdf$trait_Overshirt_c <- paste(rdf$trait_Overshirt, rdf$trait_Overshirt_Color)
+rdf <- subset(rdf, select = -c(trait_Overshirt, trait_Overshirt_Color))
+
+# Shoes manipulation
+rdf$trait_Shoes_c <- paste(rdf$trait_Shoes, rdf$trait_Shoes_Color)
+rdf <- subset(rdf, select = -c(trait_Shoes, trait_Shoes_Color))
+
+colnms = colnames(rdf)
+c = 0
+for (i in colnms) {
+  if (c > 4) {
+    print(i)
+    #rdf <- dummy_cols(rdf, select_columns = i)
+    rdf <- dummy_cols(rdf, select_columns = i, remove_selected_columns=TRUE, remove_first_dummy=TRUE)
+  }
+  c = c + 1
+}
+
+#colnames(rdf)
+```
+
+```{r}
+ncol(rdf)
+#rdf[, colSums(rdf != 0) > 0]
+ncol(rdf)
+```
+
+```{r}
+corr_simple <- function(data=df,sig=0.5){
+  #convert data to numeric in order to run correlations
+  #convert to factor first to keep the integrity of the data - each value will become a number rather than turn into NA
+  df_cor <- data %>% mutate_if(is.character, as.factor)
+  df_cor <- df_cor %>% mutate_if(is.factor, as.numeric)
+  #run a correlation and drop the insignificant ones
+  corr <- cor(df_cor)
+  #prepare to drop duplicates and correlations of 1
+  corr[lower.tri(corr,diag=TRUE)] <- NA
+  #drop perfect correlations
+  #corr[corr == 1] <- NA
+  #turn into a 3-column table
+  corr <- as.data.frame(as.table(corr))
+  #remove the NA values from above
+  corr <- na.omit(corr)
+  #select significant values
+  corr <- subset(corr, abs(Freq) > sig)
+  #sort by highest correlation
+  corr <- corr[order(-abs(corr$Freq)),]
+  #print table
+  print(corr)
+  #turn corr back into matrix in order to plot with corrplot
+  mtx_corr <- reshape2::acast(corr, Var1~Var2, value.var="Freq")
+
+  #plot correlations visually
+  corrplot(mtx_corr, is.corr=FALSE, tl.col="black", na.label=" ")
+}
+#corr_simple(data = rdf, sig=0.1)
+```
+
+```{r}
+reg = lm(log(price_in_usd) ~ . -total_price-token_id, data = rdf)
+
+summary(reg)
+```

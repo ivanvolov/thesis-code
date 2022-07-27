@@ -1,0 +1,129 @@
+---
+title: "Ananl"
+output: html_document
+---
+
+Ivan Volovyk
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+```{r cars, echo = FALSE, include=FALSE}
+setwd("~/Desktop/Thesis/code")
+library(wooldridge)
+library(stargazer)
+library(lubridate)
+library(dplyr)
+library(corrplot)
+library(car)
+library(jtools)
+library(tidyverse)
+library(fastDummies)
+library(recipes)
+library(lmtest)
+library(sandwich)
+library(skedastic)
+library(readr)
+library(readxl)
+```
+
+```{r}
+summary(whitelist$whitelisted)
+```
+
+```{r}
+print(cor(df$rarityScore, df$Rating))
+print(cor(df$rarityScore, df$score_rating))
+print(cor(df$Rating, df$score_rating))
+```
+
+
+```{r}
+by_cyl <- df %>% group_by(token_id)  %>% tally()
+summary(by_cyl$n)
+hist(by_cyl$n)
+h <- hist(by_cyl$n)
+seq(1, 18, by=1)
+h$counts
+```
+
+
+```{r, echo=TRUE}
+#colnames(rdf)
+plot(df$price_in_usd, df$Rating)
+```
+
+```{r, echo=TRUE}
+summary(df$price_in_usd)
+hist(df$first_transaction)
+
+plot(df$price_in_usd, df$token_id, col = as.factor(df$first_transaction))
+
+df <- df %>% filter(price_in_usd < 500000)
+plot(df$price_in_usd, df$token_id, col = as.factor(df$first_transaction))
+
+df <- df %>% filter(price_in_usd < 100000)
+plot(df$price_in_usd, df$token_id, col = as.factor(df$first_transaction))
+```
+
+```{r, echo=TRUE}
+df <- read.csv(file = "../meta/tx_dist_MB_NFT_v2.csv")
+df$timestamp = as.Date(strptime(df$key, "%d-%m-%Y"))
+df = df[order(as.Date(df$key, format="%d-%m-%Y")),]
+
+# Распределение транзакций
+plot(df$timestamp, df$value, xaxt="n", type="l", xlab = "", ylab = "")
+axis.Date(1, at=df$timestamp, labels=format(df$timestamp,"%b-%d"), las=2)
+
+
+# Распределение максимальной цены по каждой NFT
+df <- read.csv(file = "../meta/max_point_tx_dist_MB_NFT_v2.csv")
+df$timestamp = as.Date(strptime(df$key, "%d-%m-%Y"))
+df = df[order(as.Date(df$key, format="%d-%m-%Y")),]
+lines(df$timestamp, df$value, col="pink")
+
+# Распределение максимальной цены по каждой NFT которая не цена первой продажи
+df <- read.csv(file = "../meta/tx_dist_MB_NFT_v4.csv")
+df$timestamp = as.Date(strptime(df$key, "%d-%m-%Y"))
+df = df[order(as.Date(df$key, format="%d-%m-%Y")),]
+lines(df$timestamp, df$value, col="orange")
+```
+
+```{r, echo=TRUE}
+df <- read.csv(file = "../meta/MB.csv")
+df = df[order(df$price_in_usd),]
+
+plot(df$price_in_usd, df$score, type="l")
+
+# df$statistic <- df$statistic*100000000
+# lines(df$price_in_usd, df$statistic, col="orange")
+
+df$avg <- df$avg*50000
+lines(df$price_in_usd, df$avg, col="green")
+
+df$maxTrait <- df$maxTrait*50000
+lines(df$price_in_usd, df$maxTrait, col="orange")
+#axis.Date(1, at=df$token_id, labels=token_id, las=2)
+```
+```{r, echo=TRUE}
+df <- read.csv(file = "../meta/MB.csv")
+df = df[order(df$price_in_usd),]
+
+plot(df$price_in_usd, df$score)
+plot(df$price_in_usd, df$avg)
+plot(df$price_in_usd, df$statistic)
+plot(df$price_in_usd, df$maxTrait)
+```
+
+```{r, echo=TRUE}
+df <- read.csv(file = "./meta/MB.csv")
+df = df[order(df$price_in_usd),]
+
+hist(df$price_in_usd,
+     breaks=10,
+     ylim=c(0,10))
+
+table = df[order(df$score),]
+```
+
