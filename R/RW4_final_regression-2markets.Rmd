@@ -1,16 +1,16 @@
 ---
 title: "Processing"
-author: 'Team #3'
+author: "Team #3"
 date: "1/26/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE} 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ```{r warnign=FALSE}
-setwd("~/Desktop/Thesis/code")
+setwd("~/projects/thesis-code")
 options(max.print=1000000)
 library(readr)
 library(stringr)
@@ -34,6 +34,7 @@ colnames(df)
 ```
 
 # Choose variables
+
 ```{r}
 pcatdf <- select(df, price_in_usd, Close, first_transaction, date, winner_flow, winner_total_sold, winner_total_bought, prev_price, trait_Type, trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number, trait_Necklace, trait_Earring)
 pcatdf[is.na(pcatdf)] <- 0
@@ -64,12 +65,12 @@ rdf = rdf[,!(names(rdf) %in% c(
   "trait_Beard_Color_0", # no beard without color
   "trait_Glasses_Color_0",
   "trait_Jersey_Number_0", # no Jersey stuff without number
-  
+
   "trait_Necklace_0",
   "trait_Earring_0",
-  
+
   "trait_Shirt_18", # Don't know why, but hoodie only exist without oveshirt
-  
+
   "trait_Hat_Color_1",
   "trait_Beard_Color_1",
   "trait_Overshirt_Color_1",
@@ -77,7 +78,7 @@ rdf = rdf[,!(names(rdf) %in% c(
   "trait_Hair_Color_1",
   "trait_Shirt_Color_1",
   "trait_Shoes_Color_1",
-  
+
   "trait_Type_1",
   "trait_Shoes_1",
   "trait_Pants_1",
@@ -92,7 +93,9 @@ rdf = rdf[,!(names(rdf) %in% c(
 ```
 
 # Date manipulation
+
 ## Month
+
 ```{r}
 rdf$month<- strftime(rdf$date,"%m")
 rdf <- dummy_cols(rdf, select_columns = "month", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
@@ -101,11 +104,13 @@ rdf = rdf[,!(names(rdf) %in% c("date"))]
 ```
 
 # First regression
+
 ```{r}
 reg1 = lm(log(price_in_usd) ~ .-first_transaction, data = rdf)
 ```
 
 ## Elastic Net
+
 ```{r}
 set.seed(42) # Set seed for reproducibility
 
@@ -127,22 +132,22 @@ y.test <- y[-train_rows]
 list.of.fits <- list()
 for (i in 0:10) {
   fit.name <- paste0("alpha", i/10)
-  
+
   list.of.fits[[fit.name]] <-
-    cv.glmnet(x.train, y.train, type.measure="mse", alpha=i/10, 
+    cv.glmnet(x.train, y.train, type.measure="mse", alpha=i/10,
       family="gaussian")
 }
 
 results <- data.frame()
 for (i in 0:10) {
   fit.name <- paste0("alpha", i/10)
-  
-  predicted <- 
-    predict(list.of.fits[[fit.name]], 
+
+  predicted <-
+    predict(list.of.fits[[fit.name]],
       s=list.of.fits[[fit.name]]$lambda.1se, newx=x.test)
-  
+
   mse <- mean((y.test - predicted)^2)
-  
+
   temp <- data.frame(alpha=i/10, mse=mse, fit.name=fit.name)
   results <- rbind(results, temp)
 }
@@ -156,6 +161,7 @@ coef(reg1.1)
 ```
 
 # Date manipulation
+
 ```{r}
 pcatdf <- select(df, price_in_usd, Close, date, rarityScore, winner_flow, winner_total_sold, winner_total_bought, first_transaction, prev_price)
 pcatdf[is.na(pcatdf)] <- 0
@@ -173,6 +179,7 @@ colnames(rdf)
 ```
 
 # Second regression
+
 ```{r}
 reg2 = lm(log(price_in_usd) ~ . - first_transaction, data = rdf)
 reg3 = lm(log(price_in_usd) ~ . - first_transaction, data = filter(rdf, first_transaction == 1))

@@ -1,6 +1,6 @@
 ---
 title: "Processing"
-author: 'Team #3'
+author: "Team #3"
 date: "1/26/2022"
 output: html_document
 ---
@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r warnign=FALSE}
-setwd("~/Desktop/Thesis/code")
+setwd("~/projects/thesis-code")
 options(max.print=1000000)
 library(readr)
 library(stringr)
@@ -25,6 +25,7 @@ library(caret)
 ```
 
 ## Elastic Net
+
 ```{r}
 rdf <- rtdf
 set.seed(42) # Set seed for reproducibility
@@ -48,22 +49,22 @@ y.test <- y[-train_rows]
 list.of.fits <- list()
 for (i in 0:10) {
   fit.name <- paste0("alpha", i/10)
-  
+
   list.of.fits[[fit.name]] <-
-    cv.glmnet(x.train, y.train, type.measure="mse", alpha=i/10, 
+    cv.glmnet(x.train, y.train, type.measure="mse", alpha=i/10,
       family="gaussian")
 }
 
 results <- data.frame()
 for (i in 0:10) {
   fit.name <- paste0("alpha", i/10)
-  
-  predicted <- 
-    predict(list.of.fits[[fit.name]], 
+
+  predicted <-
+    predict(list.of.fits[[fit.name]],
       s=list.of.fits[[fit.name]]$lambda.1se, newx=x.test)
-  
+
   mse <- mean((y.test - predicted)^2)
-  
+
   temp <- data.frame(alpha=i/10, mse=mse, fit.name=fit.name)
   results <- rbind(results, temp)
 }
@@ -75,8 +76,6 @@ results
 reg1en <- cv.glmnet(x, y, type.measure="mse", alpha=0.5, family="gaussian")
 coef(reg1en)
 ```
-
-
 
 ```{r}
 rtdf <- select(df, price_in_usd, Close, date, rarityScore, winner_flow, winner_total_sold, winner_total_bought, prev_price, cur_increased, time_from_prev, whitelisted, whitelisted_count)

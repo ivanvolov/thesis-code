@@ -17,4 +17,4 @@
 
 ### Instructions
 
-Start with "R" folder and Ds_Creation scripts, when you ccould use other scripts to calculate parametrs of interest.
+Start with "R" folder and Ds_Creation scripts, when you could use other scripts to calculate parameter of interest.

@@ -1,16 +1,16 @@
 ---
 title: "Processing"
-author: 'Team #3'
+author: "Team #3"
 date: "1/26/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE} 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ```{r warnign=FALSE}
-setwd("~/Desktop/Thesis/code")
+setwd("~/projects/thesis-code")
 options(max.print=1000000)
 library(readr)
 library(stringr)
@@ -34,6 +34,7 @@ library(rpart.plot) #for plotting decision trees
 ```
 
 # Choose variables
+
 ```{r}
 rtdf <- select(df, price_in_usd, Close, date, winner_flow, winner_total_sold, winner_total_bought, prev_price, cur_increased, time_from_prev, whitelisted, whitelisted_count, trait_Type, trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number, trait_Necklace, trait_Earring)
 rtdf[is.na(rtdf)] <- 0
@@ -62,12 +63,12 @@ rtdf = rtdf[,!(names(rtdf) %in% c(
   "trait_Beard_Color_0", # no beard without color
   "trait_Glasses_Color_0",
   "trait_Jersey_Number_0", # no Jersey stuff without number
-  
+
   "trait_Necklace_0",
   "trait_Earring_0",
-  
+
   "trait_Shirt_18", # Don't know why, but hoodie only exist without oveshirt
-  
+
   "trait_Hat_Color_1",
   "trait_Beard_Color_1",
   "trait_Overshirt_Color_1",
@@ -75,7 +76,7 @@ rtdf = rtdf[,!(names(rtdf) %in% c(
   "trait_Hair_Color_1",
   "trait_Shirt_Color_1",
   "trait_Shoes_Color_1",
-  
+
   "trait_Type_1",
   "trait_Shoes_1",
   "trait_Pants_1",
@@ -90,7 +91,9 @@ rtdf = rtdf[,!(names(rtdf) %in% c(
 ```
 
 # Date manipulation
+
 ## Month
+
 ```{r}
 rtdf$month<- strftime(rtdf$date,"%m")
 rtdf <- dummy_cols(rtdf, select_columns = "month", remove_selected_columns=TRUE, remove_first_dummy=TRUE)
@@ -102,11 +105,13 @@ colnames(rtdf)
 ```
 
 # First regression
+
 ```{r}
 reg1 = lm(log(price_in_usd) ~ ., data = rtdf)
 ```
 
 # Second regression
+
 ```{r}
 rtdf <- select(df, price_in_usd, Close, date, winner_flow, winner_total_sold, winner_total_bought, prev_price, cur_increased, time_from_prev, whitelisted, whitelisted_count, trait_Type, trait_Pants, trait_Pants_Color, trait_Shoes, trait_Shoes_Color, trait_Shirt, trait_Shirt_Color, trait_Hair_Style, trait_Hair_Color, trait_Glasses, trait_Glasses_Color, trait_Overshirt, trait_Overshirt_Color, trait_Beard, trait_Beard_Color, trait_Hat, trait_Hat_Color, trait_Jersey_Number, trait_Necklace, trait_Earring)
 rtdf[is.na(rtdf)] <- 0

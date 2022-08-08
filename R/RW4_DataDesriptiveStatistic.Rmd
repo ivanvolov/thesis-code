@@ -5,12 +5,12 @@ output: html_document
 
 Ivan Volovyk
 
-```{r setup, include=FALSE} 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ```{r cars, echo = FALSE, include=FALSE}
-setwd("~/Desktop/Thesis/code")
+setwd("~/projects/thesis-code")
 library(wooldridge)
 library(stargazer)
 library(lubridate)
@@ -38,7 +38,6 @@ print(cor(df$rarityScore, df$score_rating))
 print(cor(df$Rating, df$score_rating))
 ```
 
-
 ```{r}
 by_cyl <- df %>% group_by(token_id)  %>% tally()
 summary(by_cyl$n)
@@ -47,7 +46,6 @@ h <- hist(by_cyl$n)
 seq(1, 18, by=1)
 h$counts
 ```
-
 
 ```{r, echo=TRUE}
 #colnames(rdf)
@@ -106,6 +104,7 @@ df$maxTrait <- df$maxTrait*50000
 lines(df$price_in_usd, df$maxTrait, col="orange")
 #axis.Date(1, at=df$token_id, labels=token_id, las=2)
 ```
+
 ```{r, echo=TRUE}
 df <- read.csv(file = "../meta/MB.csv")
 df = df[order(df$price_in_usd),]
@@ -126,4 +125,3 @@ hist(df$price_in_usd,
 
 table = df[order(df$score),]
 ```
-

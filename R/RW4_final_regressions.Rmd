@@ -10,7 +10,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ```{r warnign=FALSE}
-setwd("~/Desktop/Thesis/code")
+setwd("~/projects/thesis-code")
 options(max.print=1000000)
 library(readr)
 library(stringr)

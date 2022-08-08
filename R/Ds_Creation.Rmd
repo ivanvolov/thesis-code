@@ -10,7 +10,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ```{r warnign=FALSE}
-setwd("~/Desktop/Thesis/code")
+setwd("~/projects/thesis-code")
 library(readr)
 library(stringr)
 library(ggplot2)
@@ -28,8 +28,8 @@ df = df %>% filter(price_in_usd > 0)
 df = df %>% filter(trait_Type != 7)
 df[is.na(df)] <- 0
 dummies_StartsFrom = 6
-rating_df <- read_csv("./data/AllRating.csv", show_col_types = FALSE)
-rarityScore_df <- read_csv("./data/RarityScore.csv", show_col_types = FALSE)
+rating_df <- read_csv("../data/AllRating.csv", show_col_types = FALSE)
+rarityScore_df <- read_csv("../data/RarityScore.csv", show_col_types = FALSE)
 
 df <- merge(df, rating_df, by = 'token_id')
 df <- merge(df, rarityScore_df, by = 'token_id')
