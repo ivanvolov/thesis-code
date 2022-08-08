@@ -4,7 +4,7 @@
 
 ## Thesis Supervisor: Professor Olesia Verchenko
 
-## Kyiv School of Economics 2021
+## Kyiv School of Economics 2022
 
 ### Folder structure
 
